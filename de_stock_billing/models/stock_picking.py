@@ -83,7 +83,7 @@ class StockPicking(models.Model):
                     #'tax_ids': [(6, 0, line.purchase_line_id.taxes_id.ids)] or [(6, 0, line.product_id.supplier_taxes_id.ids)],
                     'analytic_account_id': line.purchase_line_id.account_analytic_id.id,
                     'analytic_tag_ids': [(6, 0, line.purchase_line_id.analytic_tag_ids.ids)],
-                    'project_id': line.project_id.id,
+                    
                     'picking_id': self.id,
                 }])
             move = invoice.create({
@@ -127,7 +127,6 @@ class StockPicking(models.Model):
             'currency_id': self.purchase_id.currency_id.id,
             'invoice_user_id': self.user_id and self.user_id.id,
             'partner_id': partner_invoice_id,
-            #'fiscal_position_id': (self.fiscal_position_id or self.fiscal_position_id.get_fiscal_position(partner_invoice_id)).id,
             'payment_reference': '',
             'partner_bank_id': self.partner_id.bank_ids[:1].id,
             'invoice_origin': self.name,
@@ -181,9 +180,6 @@ class StockMove(models.Model):
             'product_uom_id': self.product_uom.id,
             'quantity': self.quantity_done,
             'price_unit': self.picking_id.purchase_id.currency_id._convert(self.purchase_line_id.price_unit, aml_currency, self.company_id, date),
-            #'tax_ids': [(6, 0, self.purchase_line_id.taxes_id.ids)],
-            #'analytic_account_id': self.purchase_line_id.account_analytic_id.id,
-            #'analytic_tag_ids': [(6, 0, self.purchase_line_id.analytic_tag_ids.ids)],
             'purchase_line_id': self.purchase_line_id.id,
         }
         if not move:
