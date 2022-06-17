@@ -1,0 +1,24 @@
+<odoo>
+  <data>
+    
+      <record id="action_advance_bills" model="ir.actions.act_window">
+            <field name="name">Advance Bills</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="account.view_in_invoice_tree"/>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+            <field name="domain">[('move_type', '=', 'in_invoice'),('is_downpayment', '=', True)]</field>
+            <field name="context">{'default_move_type': 'in_invoice'}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a vendor bill
+              </p><p>
+                Create invoices, register payments and keep track of the discussions with your vendors.
+              </p>
+            </field>
+        </record>
+      
+        <menuitem id="menu_action_account_advance_bills" action="action_advance_bills" parent="account.menu_finance_payables" sequence="20"/>
+
+  </data>
+</odoo>

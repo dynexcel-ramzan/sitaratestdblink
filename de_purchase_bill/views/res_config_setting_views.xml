@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_purchase_down_payment" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.purchase.coupon</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('app_settings_block')]//div[@name='invoicing_settings_container']" position="inside">
+                
+                        <div class="col-12 col-lg-6 o_setting_box" id="down_payments">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Down Payments</span>
+                                <a href="https://www.odoo.com/documentation/user/14.0/sales/invoicing/down_payment.html" title="Documentation" class="o_doc_link" target="_blank"></a>
+                                <div class="text-muted">
+                                    Product and Journal used for down payments
+                                </div>
+                                <div class="text-muted">
+                                    <field name="deposit_default_journal_id" context="{'default_type': 'purchase'}"/>
+                                </div>
+                                <div class="text-muted">
+                                    <field name="purchase_deposit_product_id" context="{'default_type': 'service'}"/>
+                                </div>
+                            </div>
+                        </div>
+                
+            </xpath>
+        </field>
+    </record>
+</odoo>

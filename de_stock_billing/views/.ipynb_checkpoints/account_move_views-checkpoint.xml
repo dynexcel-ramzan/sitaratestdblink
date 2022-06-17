@@ -1,0 +1,54 @@
+<odoo>
+  <data>
+      
+      <record id="stock_picking_form_view_invoice" model="ir.ui.view">
+			<field name="name">account.move.form.view</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_move_form"/>
+			<field name="arch" type="xml">
+                <!--
+				<xpath expr="//div[@name='button_box']//button[@name='open_reconcile_view']" position="after">
+					   <button name="action_view_shipment" string="Shipment" type="object" class="oe_stat_button" icon="fa-truck" attrs="{'invisible': [('shipment_count', '=', 0)]}"/>
+
+				</xpath>
+-->
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <button type="object"
+                        name="action_view_picking"
+                        class="oe_stat_button"
+                        icon="fa-truck" attrs="{'invisible':[('picking_ids','=',[])]}">
+                        <field name="picking_count" widget="statinfo" string="Receipt" help="Incoming Shipments"/>
+                        <field name="picking_ids" invisible="1"/>
+                    </button>
+                </xpath>
+                
+                
+				<xpath expr="//notebook" position="inside">
+                    <page name="transfers" string="Transfers" attrs="{'invisible':[('picking_ids','=',[])]}">
+                        <field name="picking_ids" readonly="1">
+                            <tree editable="bottom">
+                                <field name="name" decoration-bf="1"/>
+                                <field name="location_id" options="{'no_create': True}" string="From" groups="stock.group_stock_multi_locations" optional="show"/>
+                                <field name="location_dest_id" options="{'no_create': True}" string="To" groups="stock.group_stock_multi_locations" optional="show"/>
+                                <field name="partner_id" optional="show"/>
+                                <field name="signature" string="Signed" optional="hide" groups="stock.group_stock_sign_delivery"/>
+                                <field name="user_id" optional="hide" widget="many2one_avatar_user"/>
+                                <field name="scheduled_date" optional="show" widget="remaining_days" attrs="{'invisible':[('state', 'in', ('done', 'cancel'))]}"/>
+                                <field name="date_deadline" optional="hide" widget="remaining_days" attrs="{'invisible':[('state', 'in', ('done', 'cancel'))]}"/>
+                                <field name="origin" optional="show"/>
+                                <field name="group_id" invisible="1"/>
+                                <field name="backorder_id" optional="hide"/>
+                                <field name="picking_type_id" optional="hide"/>
+                                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                                <field name="state" optional="show" widget="badge" decoration-success="state == 'done'" decoration-info="state not in ('done', 'cancel')"/>
+                                <field name="activity_exception_decoration" widget="activity_exception"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+			</field>
+		</record>
+     
+      
+  </data>
+</odoo>

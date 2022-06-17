@@ -1,0 +1,61 @@
+<odoo>
+  <data>
+      <!-- Create Vendor Bill -->
+        <record model="ir.actions.act_window" id="action_picking_to_bill">
+        <field name="name">Vendor Bill</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">form,tree</field>
+        <field name="domain">[('picking_id','=',active_id)]</field>
+        <field name="context">{
+            "default_picking_id":active_id,
+            "default_user_id": False,
+            }
+        </field>
+    </record>
+      
+      <record id="stock_picking_form_view_invoices" model="ir.ui.view">
+			<field name="name">stock.picking.form.view.invoice</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_form"/>
+			<field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    
+                    <field name='invocie_count' invisible="1"/>
+                    <!--<button name="%(action_picking_to_bill)d" string="Create Bill" class="btn-primary" type="action" invisible="0" attrs="{'invisible':[('invocie_count','=',1)]}"/>-->
+<!--
+                    <button string="Create Bill" name="create_bill" type="object" class="btn-primary" attrs="{'invisible':[('invoice_control','!=','2binvoice')]}"/>
+                    -->
+                    
+                    <button string="Create Bill" name="%(de_stock_billing.open_create_invoice_wizard_action)d" type="action" class="btn-primary" attrs="{'invisible':[('invoice_control','!=','2binvoice')]}"/>
+
+                </xpath>
+				<xpath expr="//div[@name='button_box']" position="inside">
+					   <button name="action_view_invoice" string="Vendor Bill" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('invocie_count', '=', 0)]}"/>
+
+				</xpath>
+                
+                <xpath expr="//page[@name='extra']//field[@name='picking_type_code']" position="after">
+					   <field name='invocie_count' invisible="1"/>
+                       <field name='move_id'  />
+                    <field name='invoice_control'  readonly="0"/>
+				</xpath>
+				
+			</field>
+		</record>
+      
+        <record id="stock_picking_tree_view_invoice" model="ir.ui.view">
+			<field name="name">stock.picking.tree.view.invoice</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.vpicktree"/>
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="origin_picking_id" optional="hide" />
+                    <field name="is_return" optional="hide" />
+                    <field name="invoice_control" optional="hide" />
+                </xpath>    
+            </field>
+		</record>
+      
+  </data>
+</odoo>
