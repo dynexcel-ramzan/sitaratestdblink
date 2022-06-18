@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="res_config_settings_view_form_whatsapp">
+        <field name="name">res.config.settings.view.form.inherit.base.setup</field>
+        <field name="model">res.config.settings</field>
+            <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Whatsapp Settings" string="Whatsapp" data-key="de_whatsapp_connector" >
+                     <div id="Box">
+                        <h2>Signature</h2>
+                         <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="whatsapp_signature"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="whatsapp_signature"/>
+                                    <div class="text-muted">
+                                      Add signature with message.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+        </record>
+        
+        <record id="action_whatsapp_configuration" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="res_config_settings_view_form_whatsapp"/>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'de_whatsapp_base_connector', 'bin_size': False}</field>
+    </record>
+
+    <menuitem id="menu_whatsapp_general_settings" name="Settings" parent="whatsapp_configuration_menu"
+        sequence="0" action="action_whatsapp_configuration" groups="base.group_system"/>
+
+                           
+
+
+ </data>
+</odoo>

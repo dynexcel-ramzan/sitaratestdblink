@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record id="custom_message_wizard_form" model="ir.ui.view">
+            <field name="name">message.wizard</field>
+            <field name="model">message.wizard</field>
+            <field name="arch" type="xml" >
+                <form string="Message" create='false' delete='false'>
+                    <group class="oe_title">
+                        <field name="text"/>
+                    </group>
+                    <footer>
+                        <button string='Print' name="check_report" type="object" default_focus="1" class="oe_highlight"/>
+                        <button string="OK" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="custom_message_wizard" model="ir.actions.act_window">
+            <field name="name">Lost Reason</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">message.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="custom_message_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+
+
+    </data>
+</odoo>

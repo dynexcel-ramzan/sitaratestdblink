@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+     <record model="ir.ui.view" id="whatsapp_logs_view">
+            <field name="name">detail.logs.pivot</field>
+            <field name="model">detail.logs</field>
+            <field name="arch" type="xml">
+                <pivot string="Whatsapp Logs">
+                    <field name="sync_date"></field>
+                    <field name="contact_name"></field>
+                    <field name="account_used"></field>
+                    <field name="signature_att"></field>
+                    <field name="message_sucess"></field>
+
+                </pivot>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="whatsapp_logs_tree_view">
+            <field name="name">detail.logs.tree</field>
+            <field name="model">detail.logs</field>
+            <field name="arch" type="xml">
+                <tree string="Whatsap Logs" create="false" edit="false">
+                    <field name="sync_date"></field>
+                    <field name="account_used"></field>
+                    <field name="contact_name"></field>
+                    <field name="employee_name"></field>
+                    <field name="files_attachted" widget="many2many_binary"></field>
+                    <field name="signature_att"></field>
+                    <field name="from_model"></field>
+                    <field name="message_sucess"></field>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="whatsapp_logs_form_view">
+            <field name="name">detail.logs.form</field>
+            <field name="model">detail.logs</field>
+            <field name="arch" type="xml">
+                <form string="Whatsap Logs" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sync_date"></field>
+                                <br></br>
+                                <field name="account_used"></field>
+                                <br></br>
+                                <field name="contact_name"></field>
+                                <br></br>
+                                <field name="employee_name"></field>
+                                <br></br>
+                                <field name="signature_att"></field>
+                                <br></br>
+                                <field name="from_model"></field>
+                                <br></br>
+                                <field name="message_sucess"></field>
+                            </group>
+                            <group>
+                                <field name="files_attachted" widget="many2many_binary"></field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="whatsapp_logs_action">
+            <field name="name">Whatsapp Logs</field>
+            <field name="res_model">detail.logs</field>
+            <field name="view_mode">pivot,tree,form</field>
+        </record>
+
+ </data>
+</odoo>

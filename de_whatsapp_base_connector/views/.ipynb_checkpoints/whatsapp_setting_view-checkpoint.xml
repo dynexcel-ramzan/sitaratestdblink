@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sp_settings_form_view">
+            <field name="name">whatsapp.credentials.form</field>
+            <field name="model">whatsapp.settings</field>
+            <field name="arch" type="xml">
+                <form string="Whatsapp Credentials">
+                     <header>
+                        <button name="whatsapp_connection" states="draft" class="oe_highlight" string="Connect" type="object"/>
+                        <button name="action_logout"  states="active" class="oe_highlight" string="Logout" type="object"/>
+                         
+                        <button name="get_qr_code"  states="draft" class="oe_highlight" string="QR Code" type="object"/>
+                        <button name="get_qr_code"  states="active" class="oe_highlight" string="QR Code" type="object"/>
+                         <button name="action_draft"  states="active,close" string="Reset to draft" type="object"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,active,close"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title pr-0">
+                        <h1 class="d-flex flex-row justify-content-between">
+                            <field name="name" class="o_task_name text-truncate" attrs="{'readonly': [('state', 'in', ['active','close'])]}" placeholder="Instance..."/>
+                        </h1>
+                    </div>
+                        <group>
+                            <group>
+                                <br/>
+                                <field name="url" placeholder="https://eu74.chat-api.com/instance" attrs="{'readonly': [('state', 'in', ['active','close'])]}"/>
+                                <field name="whatsapp_instance_id" attrs="{'readonly': [('state', 'in', ['active','close'])]}"/>
+                                <field name="whatsapp_token" attrs="{'readonly': [('state', 'in', ['active','close'])]}"/>
+                                <br></br>
+                            </group>
+                            <group>
+                                <field name="image" widget="image" readonly="1" string=" "/>
+
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="whatsapp_settings_tree_view">
+            <field name="name">whatsapp.credentials.tree</field>
+            <field name="model">whatsapp.settings</field>
+            <field name="arch" type="xml">
+                <tree string="Whatsapp Users">
+                    <field name="name"/>
+                    <field name="whatsapp_instance_id"/>
+                    <field name="whatsapp_token"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="whatsapp_setting_action">
+            <field name="name">Channel</field>
+            <field name="res_model">whatsapp.settings</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|',('create_uid','=',uid),('create_uid','=',False)]</field>
+        </record>
+
+        <menuitem id="whatsapp_instance_view" name="Instance" parent="whatsapp_message_channel_view" action="whatsapp_setting_action" sequence="1"/>
+
+ </data>
+</odoo>

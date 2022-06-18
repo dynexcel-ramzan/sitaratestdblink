@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="main_whatsapp_connector_menu" name="WhatsApp"         web_icon="de_whatsapp_base_connector,static/description/icon.png" />
+        
+        <menuitem id="whatsapp_message" name="WhatsApp" parent="main_whatsapp_connector_menu" sequence="1"/>
+        
+        <menuitem id="whatsapp_message_channel_view" name="Channel" parent="main_whatsapp_connector_menu" sequence="1"/>
+                
+        <menuitem id="whatsapp_logs_report" name="Reporting" parent="main_whatsapp_connector_menu" action="whatsapp_logs_action" sequence="2"/>
+
+        <menuitem id="whatsapp_configuration_menu" name="Configuration" parent="main_whatsapp_connector_menu" />
+       <menuitem id="menu_whatsapp_templates" name="Template" parent="whatsapp_configuration_menu" action="action_whatsapp_template_tree_all"
+                  sequence="10"/>
+
+ </data>
+</odoo>

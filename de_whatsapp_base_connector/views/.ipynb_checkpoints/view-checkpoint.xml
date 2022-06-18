@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <data noupdate="1">
+            <record id="my_record_01" model="whatsapp.message">
+                <field name="field_name">Whatsapp Connector</field>
+            </record>
+    </data>
+
+    <data>
+<!--        <record model="mail.channel" id="channel_11">-->
+<!--            <field name="name">Whatsapp</field>-->
+<!--            <field name="description">Discussion about best sales practices and deals...</field>-->
+<!--        </record>-->
+
+        <record id="whatsapp_res_partner" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="send_msg"
+                            type="object"
+                            >
+                        <field name="message_counter" widget="statinfo" string="Whatsapp"/>
+                    </button>
+<!--                    <button class="oe_stat_button"-->
+<!--                            icon="fa-whatsapp"-->
+<!--                            name="wa_history"-->
+<!--                            type="object">-->
+<!--                            <field name="history_count" widget="statinfo" string="WA History"/>-->
+<!--                    </button>-->
+
+<!--                    <button class="oe_stat_button"-->
+<!--                            icon="fa-whatsapp"-->
+<!--                            name="wa_discuss"-->
+<!--                            type="object"-->
+<!--                            string="WA Chat">-->
+<!--                    </button>-->
+                </div>
+<!--                <form>-->
+<!--                     <field name="dicuss_history" invisible="1"/>-->
+
+<!--                </form>-->
+            </field>
+        </record>
+
+
+        <record id="whatsapp_acc_payments" model="ir.ui.view">
+            <field name="name">account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="send_msg"
+                            type="object">
+                        <field name="msg_count_pay" widget="statinfo" string="Whatsapp"/>
+                    </button>
+                    <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="wa_history"
+                            type="object">
+                            <field name="history_count" widget="statinfo" string="WA History"/>
+                    </button>
+                </div>
+
+            </field>
+        </record>
+
+
+        <record id="whatsapp_acc_stock" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="send_msg"
+                            type="object">
+                        <field name="msg_count_pay" widget="statinfo" string="Whatsapp"/>
+                    </button>
+                    <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="wa_history"
+                            type="object">
+                            <field name="history_count" widget="statinfo" string="WA History"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+
+        <record id="whatsapp_acc_purchase" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="send_msg"
+                            type="object">
+                        <field name="msg_count_pur" widget="statinfo" string="Whatsapp"/>
+                    </button>
+                    <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="wa_history"
+                            type="object">
+                            <field name="history_count" widget="statinfo" string="WA History"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+
+        <record id="whatsapp_res_sale_order" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="send_msg"
+                            type="object">
+                        <field name="message_counter_sales" widget="statinfo" string="Whatsapp"/>
+                    </button>
+                    <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="wa_history"
+                            type="object">
+                            <field name="history_count" widget="statinfo" string="WA History"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+        <record id="whatsapp_res_account_move" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+<!--                   <button name="send_msg" string="Whatsapp Message" type="object" class="oe_stat_button" icon="fa-whatsapp"/>-->
+                <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="send_msg"
+                            type="object">
+                    <field name="message_counter_invoice" widget="statinfo" string="Whatsapp"/>
+                </button>
+                    <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="wa_history"
+                            type="object">
+                            <field name="history_count" widget="statinfo" string="WA History"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+
+        <record id="whatsapp_res_hr_employee" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+<!--                   <button name="send_msg" string="Whatsapp Message" type="object" class="oe_stat_button" icon="fa-whatsapp"/>-->
+                <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="send_msg"
+                            type="object">
+                    <field name="message_counter_employee" widget="statinfo" string="Whatsapp"/>
+                </button>
+                    <button class="oe_stat_button"
+                            icon="fa-whatsapp"
+                            name="wa_history"
+                            type="object">
+                            <field name="history_count" widget="statinfo" string="WA History"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="partner_user_kanban_view">
+            <field name="name">partner.location</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <field name="email" position="after">
+                    <field name="message_highliter"/>
+                </field>
+                <xpath expr="//kanban/templates/t/div/div/ul" position="inside">
+                    <li style="font-weight:bold; color:green;" >
+                        <field name="message_highliter"/>
+                    </li>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="employee_user_kanban_view">
+            <field name="name">employee.location</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban/templates/t/div/div/ul" position="inside">
+                    <li style="font-weight:bold; color:green;" >
+                        <field name="message_highliter"/>
+                    </li>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="whatsapp_message_form_view">
+            <field name="name">whatsapp.message.form</field>
+            <field name="model">whatsapp.message</field>
+            <field name="arch" type="xml">
+                <form string="Whatsapp Message" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <br></br>
+                                <field name="name" readonly="1"/>
+                                <br></br>
+                                <field name="contacts_to" widget="many2many_tags"/>
+                                <br></br>
+                                <field name="message"/>
+                                <br></br>
+                                <field name="attatchments_whatsap" widget="many2many_binary"/>
+                            </group>
+                        </group>
+                        <group>
+                            <br></br>
+                            <group>
+                                  <button name="send_message" type="object" string="Send Message" class="oe_highlight" icon="fa-plug"/>
+                            </group>
+                        </group>
+
+
+<!--                        <notebook colspan="3">-->
+<!--                            <page string="Message History" autofocus="autofocus">-->
+<!--                                <group>-->
+<!--                                    <field name="wp_history" mode="tree,kanban">-->
+<!--                                        <form string="Message Lines" edit="false" create="false">-->
+<!--                                            <group>-->
+<!--                                                <group>-->
+<!--&lt;!&ndash;                                                    <field name="sync_id"/>&ndash;&gt;-->
+<!--                                                    <field name="sync_date"/>-->
+<!--                                                    <field name="account_used"/>-->
+<!--                                                    <field name="contact_name"/>-->
+<!--                                                    <field name="message_sucess"/>-->
+<!--                                                </group>-->
+<!--                                            </group>-->
+<!--                                        </form>-->
+<!--                                        <tree string="Message History" create="false" delete="true">-->
+<!--&lt;!&ndash;                                            <field name="sync_id"/>&ndash;&gt;-->
+<!--                                                    <field name="sync_date"/>-->
+<!--                                                    <field name="account_used"/>-->
+<!--                                                    <field name="contact_name"/>-->
+<!--                                                    <field name="message_sucess"/>-->
+<!--                                        </tree>-->
+<!--                                    </field>-->
+<!--                                </group>-->
+<!--                            </page>-->
+<!--                        </notebook>-->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="whatsapp_logs_view">
+            <field name="name">detail.logs.pivot</field>
+            <field name="model">detail.logs</field>
+            <field name="arch" type="xml">
+                <pivot string="Whatsapp Logs">
+                    <field name="sync_date"></field>
+                    <field name="contact_name"></field>
+                    <field name="account_used"></field>
+                    <field name="signature_att"></field>
+                    <field name="message_sucess"></field>
+
+                </pivot>
+<!--                <group>-->
+<!--                    <tree string="Whatsap Logs">-->
+<!--                    <field name="sync_date"></field>-->
+<!--                    <field name="contact_name"></field>-->
+<!--                    <field name="employee_name"></field>-->
+<!--                    <field name="account_used"></field>-->
+<!--                    <field name="signature_att"></field>-->
+<!--                    <field name="message_sucess"></field>-->
+
+<!--                </tree>-->
+<!--                </group>-->
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="whatsapp_logs_tree_view">
+            <field name="name">detail.logs.tree</field>
+            <field name="model">detail.logs</field>
+            <field name="arch" type="xml">
+                <tree string="Whatsap Logs" create="false" edit="false">
+                    <field name="sync_date"></field>
+                    <field name="account_used"></field>
+                    <field name="contact_name"></field>
+                    <field name="employee_name"></field>
+                    <field name="files_attachted" widget="many2many_binary"></field>
+                    <field name="signature_att"></field>
+                    <field name="from_model"></field>
+                    <field name="message_sucess"></field>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="whatsapp_logs_form_view">
+            <field name="name">detail.logs.form</field>
+            <field name="model">detail.logs</field>
+            <field name="arch" type="xml">
+                <form string="Whatsap Logs" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sync_date"></field>
+                                <br></br>
+                                <field name="account_used"></field>
+                                <br></br>
+                                <field name="contact_name"></field>
+                                <br></br>
+                                <field name="employee_name"></field>
+                                <br></br>
+                                <field name="signature_att"></field>
+                                <br></br>
+                                <field name="from_model"></field>
+                                <br></br>
+                                <field name="message_sucess"></field>
+                            </group>
+                            <group>
+                                <field name="files_attachted" widget="many2many_binary"></field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="whatsapp_logs_action">
+            <field name="name">Whatsapp Logs</field>
+            <field name="res_model">detail.logs</field>
+            <field name="view_mode">pivot,tree,form</field>
+<!--            <field name="res_id" ref="de_whatsapp_connector.my_record_01"/>-->
+<!--            <field name="target">inline</field>-->
+        </record>
+
+
+        <record model="ir.actions.act_window" id="whatsapp_message_action">
+            <field name="name">Whatsapp Connector</field>
+            <field name="res_model">whatsapp.message</field>
+            <field name="view_mode">form</field>
+<!--            <field name="res_id" ref="de_whatsapp_connector.my_record_01"/>-->
+            <field name="target">inline</field>
+        </record>
+
+
+        <record model="ir.ui.view" id="sp_settings_form_view">
+            <field name="name">whatsapp.credentials.form</field>
+            <field name="model">whatsapp.settings</field>
+            <field name="arch" type="xml">
+                <form string="Whatsapp Credentials">
+                    <sheet>
+                        <group>
+                            <group string="Whatsapp Client">
+                                <br/>
+                                <field name="name"/>
+                                <field name="whatsapp_instance_id"/>
+                                <field name="whatsapp_token"/>
+                                <br></br>
+                            </group>
+                            <group>
+                                <field name="image" widget="image" readonly="1" string=" "/>
+
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                               <button name="test_connection" type="object" string="Test Connection" class="oe_highlight" icon="fa-plug"/>
+                                <button name="get_logout" type="object" string="Logout" class="oe_highlight" icon="fa-plug"/>
+                            </group>
+                            <group>
+                                    <button name="get_qr_code" type="object" string="QR Code" class="oe_highlight oe_right oe_center" icon="fa-plug" style="margin-right: 23%"/>
+                            </group>
+                        </group>
+                    </sheet>
+<!--                    <footer>-->
+<!--                        -->
+<!--                    </footer>-->
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="whatsapp_settings_tree_view">
+            <field name="name">whatsapp.credentials.tree</field>
+            <field name="model">whatsapp.settings</field>
+            <field name="arch" type="xml">
+                <tree string="Whatsapp Users">
+                    <field name="name"/>
+                    <field name="whatsapp_instance_id"/>
+                    <field name="whatsapp_token"/>
+                </tree>
+            </field>
+        </record>
+
+
+<!--        <record id="customer_order_new_action1" model="ir.actions.server">-->
+<!--            <field name="name">Whatsapp Message</field>-->
+<!--            <field name="type">ir.actions.server</field>-->
+<!--&lt;!&ndash;            <field name="model_id" ref="model_res_partner" />&ndash;&gt;-->
+<!--            <field name="model_id" ref="base.model_res_partner"/>-->
+<!--            <field name="binding_model_id" ref="base.model_res_partner" />-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">records.multi_send_msg()</field>-->
+<!--        </record>-->
+
+        <record id="customer_order_new_action1" model="ir.actions.server">
+        <field name="name">Whatsapp Message</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_res_partner" />
+        <field name="binding_model_id" ref="model_res_partner" />
+        <field name="state">code</field>
+        <field name="code">action = records.multi_send_msg()</field>
+        </record>
+
+        <record id="employee_order_new_action1" model="ir.actions.server">
+        <field name="name">Whatsapp Message</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_hr_employee" />
+        <field name="binding_model_id" ref="model_hr_employee" />
+        <field name="state">code</field>
+        <field name="code">action = records.multi_send_msg()</field>
+        </record>
+
+        <record id="sale_order_new_action1" model="ir.actions.server">
+        <field name="name">Whatsapp SaleOrder</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_sale_order" />
+        <field name="binding_model_id" ref="model_sale_order" />
+        <field name="state">code</field>
+        <field name="code">action = records.whatsap_Saleorder()</field>
+        </record>
+
+        <record id="invoice_new_action1" model="ir.actions.server">
+        <field name="name">Whatsapp Invoices</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_account_move" />
+        <field name="binding_model_id" ref="model_account_move" />
+        <field name="state">code</field>
+        <field name="code">action = records.whatsap_invoice()</field>
+        </record>
+
+        <record id="payments_new_action1" model="ir.actions.server">
+        <field name="name">Whatsapp Payments</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_account_payment" />
+        <field name="binding_model_id" ref="model_account_payment" />
+        <field name="state">code</field>
+        <field name="code">action = records.whatsapp_payments()</field>
+        </record>
+
+        <record id="stock_new_action1" model="ir.actions.server">
+        <field name="name">Whatsapp Stocks</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_stock_picking" />
+        <field name="binding_model_id" ref="model_stock_picking" />
+        <field name="state">code</field>
+        <field name="code">action = records.whatsapp_stock()</field>
+        </record>
+
+        <record id="purchase_new_action1" model="ir.actions.server">
+        <field name="name">Whatsapp Purchase Orders</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_purchase_order" />
+        <field name="binding_model_id" ref="model_purchase_order" />
+        <field name="state">code</field>
+        <field name="code">action = records.whatsapp_purchase()</field>
+        </record>
+
+
+         <record model="ir.actions.act_window" id="whatsapp_setting_action">
+            <field name="name">Whatsapp Settings</field>
+            <field name="res_model">whatsapp.settings</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|',('create_uid','=',uid),('create_uid','=',False)]</field>
+        </record>
+
+
+         <record model="ir.ui.view" id="res_config_settings_view_form_inherit">
+        <field name="name">res.config.settings.view.form.inherit.base.setup</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Whatsapp Settings" string="Whatsapp Settings" data-key="de_whatsapp_connector" >
+                     <div id="Box">
+                        <h2>Whatsapp Instance</h2>
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_right_pane">
+                                        <group><field name="select_account_whatsapp"></field></group>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                    <h2>Permissions</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="quotation_orders"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="quotation_orders"/>
+                                    <div class="text-muted">
+                                      Add Product Information Along Text Messages.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="invoices"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="invoices"/>
+                                    <div class="text-muted">
+                                      Add Product Information Along Text Messages.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="purchase"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="purchase"/>
+                                    <div class="text-muted">
+                                      Add Product Information Along Text Messages.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="payment"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="payment"/>
+                                    <div class="text-muted">
+                                      Add Receipt Information Along Text Messages.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="inventory"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="inventory"/>
+                                    <div class="text-muted">
+                                      Add Product Information Along Text Messages.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <h2>Signature</h2>
+                         <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="whatsapp_signature"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="whatsapp_signature"/>
+                                    <div class="text-muted">
+                                      Add Signature Along Text Messages.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+        </record>
+
+
+
+
+        <record model="ir.actions.act_window" id="sp_setting_action">
+            <field name="name">res_config_settings</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="base.res_config_settings_view_form"/>
+            <field name="domain">['|',('create_uid','=',uid),('create_uid','=',False)]</field>
+            <field name="target">inline</field>
+            <field name="context">{'module':'de_whatsapp_connector'}</field>
+        </record>
+        
+
+        <menuitem id="main_whatsapp_connector_menu" name="WhatsApp"/>
+                <menuitem id="whatsapp_message" name="WhatsApp" parent="main_whatsapp_connector_menu" sequence="1"/>
+                <menuitem id="whatsapp_message_view" name="Dashboard" parent="main_whatsapp_connector_menu" action="whatsapp_message_action" sequence="1"/>
+                <menuitem id="whatsapp_logs" name="Reporting" parent="main_whatsapp_connector_menu" action="whatsapp_logs_action" sequence="2"/>
+
+                <menuitem id="spodoo_configuration" name="Configuration" parent="main_whatsapp_connector_menu" />
+                <menuitem id="spodoo_settings" name="Settings" parent="spodoo_configuration" action="sp_setting_action"/>
+
+                <menuitem id="google_box_menu" name="Credentials "
+                  parent="spodoo_configuration" action="whatsapp_setting_action"/>
+
+
+ </data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+                <record id="whatsapp_send_msg_wizard" model="ir.ui.view">
+            <field name="name">whatsapp.message.wizard.form</field>
+            <field name="model">whatsapp.message.wizard</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Whatsapp Message" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="whatsapp_account" readonly="1"/>
+                                <br></br>
+                                <field name="contacts_to" widget="many2many_tags" readonly="context.get('default_selection_check', True)"/>
+                                <field name="mobile_no" invisible="context.get('default_invisible_check')"/>
+                                <br></br>
+                                <field name="message"/>
+                                <br></br>
+                                <field name="attatchments_whatsap" widget="many2many_binary"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                    <footer>
+                            <button name="send_message" type="object" string="Send Message" class="oe_highlight" icon="fa-plug"  />
+                            <button string="Discard" special="cancel" style="width:10%"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

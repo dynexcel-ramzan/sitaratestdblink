@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_whatsapp_settings,access.whatsapp.settings,model_whatsapp_settings,,1,1,1,1
+access_whatsapp_message_log,access.whatsapp.message.log,model_whatsapp_message_log,base.group_user,1,1,1,1
+access_whatsapp_compose_message,access.whatsapp.compose.message,model_whatsapp_compose_message,base.group_user,1,1,1,1
+access_message_wizard,access.message.wizard,model_message_wizard,base.group_user,1,1,1,1
+access_whatsapp_template,access.whatsapp.template,model_whatsapp_template,base.group_user,1,1,1,1
+
+

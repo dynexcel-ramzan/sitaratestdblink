@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+     <record model="ir.ui.view" id="whatsapp_message_log_pivot_view">
+            <field name="name">whatsapp.message.log.pivot.view</field>
+            <field name="model">whatsapp.message.log</field>
+            <field name="arch" type="xml">
+                <pivot string="Whatsapp Log">
+                    <field name="date_delivered"></field>
+                    <field name="partner_id"></field>
+                    <field name="account_id"></field>
+                    <field name="signature"></field>
+                    <field name="message_deliverd"></field>
+
+                </pivot>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="whatsapp_message_log_tree_view">
+            <field name="name">whatsapp.message.log.tree.view</field>
+            <field name="model">whatsapp.message.log</field>
+            <field name="arch" type="xml">
+                <tree string="Whatsapp Log" create="false" edit="false">
+                    <field name="date_delivered"></field>
+                    <field name="account_id"></field>
+                    <field name="partner_id"></field>
+                    <field name="signature"></field>
+                    <field name="model_id"></field>
+                    <field name="message_deliverd"></field>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="whatsapp_message_log_form_view">
+            <field name="name">whatsapp.message.log.form.view</field>
+            <field name="model">whatsapp.message.log</field>
+            <field name="arch" type="xml">
+                <form string="Whatsapp Log" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date_delivered"></field>
+                                <field name="account_id"></field>
+                                <field name="message"></field>
+                                <field name="partner_id"></field>
+                             </group>   
+                             <group>   
+                               
+                                <field name="signature"></field>
+                                <field name="model_id"></field>
+                                <field name="message_deliverd"></field>
+                                <field name="attachment_id" widget="many2many_binary"></field>
+                            </group>
+                          
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="whatsapp_message_log_action">
+            <field name="name">Whatsapp Log</field>
+            <field name="res_model">whatsapp.message.log</field>
+            <field name="view_mode">tree,pivot,form</field>
+        </record>
+        
+        <menuitem id="whatsapp_logs_report" name="Reporting" parent="main_whatsapp_connector_menu" action="whatsapp_message_log_action" sequence="2"/>
+
+
+ </data>
+</odoo>

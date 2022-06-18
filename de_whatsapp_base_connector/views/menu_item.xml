@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <data noupdate="1">
+            <record id="my_record_01" model="whatsapp.message">
+                <field name="field_name">Whatsapp Connector</field>
+            </record>
+    </data>
+
+    <data>
+
+        <menuitem id="main_whatsapp_connector_menu" name="WhatsApp"              web_icon="de_whatsapp_connector,static/description/icon.png"
+/>
+                <menuitem id="whatsapp_message" name="WhatsApp" parent="main_whatsapp_connector_menu" sequence="1"/>
+                <menuitem id="whatsapp_message_channel_view" name="Channel" parent="main_whatsapp_connector_menu" sequence="1"/>
+                <menuitem id="whatsapp_instance_view" name="Instances" parent="whatsapp_message_channel_view" action="whatsapp_setting_action" sequence="1"/>
+                <menuitem id="whatsapp_logs_report" name="Reporting" parent="main_whatsapp_connector_menu" action="whatsapp_logs_action" sequence="2"/>
+
+                <menuitem id="whatsapp_configuration_menu" name="Configuration" parent="main_whatsapp_connector_menu" />
+                <menuitem id="whatsapp_settings" name="Settings" parent="whatsapp_configuration_menu" action="sp_setting_action"/>
+
+
+ </data>
+</odoo>
