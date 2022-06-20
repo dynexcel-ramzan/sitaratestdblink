@@ -1,0 +1,615 @@
+<odoo>
+  <data>
+  <template id="payment_schedule_office_report">
+    <t t-call="web.html_container">
+    <t t-call="web.external_layout">
+        <div class="page" style='font-size:12px;'>
+            <div class="oe_structure"/>
+             <div  class='pull-right' style="max-width: 250px;height: 20px; color:blue;margin:5px;">
+               <strong>Printed On:</strong>
+               <span  t-esc="datetime.datetime.strptime(str(datetime.datetime.now()+ relativedelta(hours =+ 5)), '%Y-%m-%d %H:%M:%S.%f').strftime('%d-%b-%y %H:%M %p')"/> <br/>
+               <strong>Office Copy</strong>
+            </div>
+            
+             <br/>
+             <br/>
+            <div class='row'>
+            <div class='col-8'>
+                <table class='table table-sm'>
+                    <tr>
+                        <td>DATE              :</td>
+                        <td style='text-align:left;'><span t-esc='docs.date_order.strftime("%d-%b-%Y")'/></td>
+                     </tr>
+                    <tr>
+                        <td>ALLOTTEE'S NAME   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.name'/></td>
+                    </tr>
+                    <tr>
+                        <td >S/O,W/O,D/O      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.father_husband_name'/></td>
+                    </tr>                    
+                 </table>  
+            </div>
+            <div class='col-4'>
+                <img t-if="docs.partner_id.image_1920" t-att-src="image_data_uri(docs.partner_id.image_1920)" style="max-height:85pt;max-width:100%" alt="Customer Image"/>
+            </div>    
+           </div> 
+            
+                 <table class='table table-sm'>   
+                     <tr>
+                        <td >CNIC NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.nic'/></td>
+                    </tr>
+                     <tr>
+                        <td >CONTACT NO.      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.mobile'/></td>
+                    </tr>
+                    <tr>
+                        <td >EMAIL ADDRESS.   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.email'/></td>
+                    </tr>
+                     <tr>
+                        <td >ADDRESS.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.street'/></td>
+                    </tr>
+                    <t t-foreach="docs.order_line" t-as="line">
+                     <tr>
+                        <td >PLOT TYPE.       :</td>
+                        <td style='text-align:left;'><span t-esc='line.plot_type'/></td>
+                    </tr>
+                        <tr>
+                        <td >PLOT NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='line.product_id.name'/></td>
+                    </tr>
+                        <tr>
+                        <td >AREA(MARLA)         :</td>
+                        <td style='text-align:left;'><span t-esc='line.size'/></td>
+                    </tr>
+                        <tr>
+                        <td >RATE(MARLA)         :</td>
+                        <td style='text-align:left;'><span t-esc='round(float(line.rate_area_marla),2)'/></td>
+                    </tr>
+                    </t>
+            </table>
+            <br/>
+            <br/>
+            <div class="row">
+                 <div class='col-4'>
+            <table class="table table-bordered">
+                 <thead style="display: table-row-group">
+                     <tr style="background-color:#000000;color:#ffffff">
+                         <th>
+                         <span>
+                             <font class="text-white">Net Amount</font>
+                         </span>
+                         </th>
+                     </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <tr>
+                         <t t-set="total_process" t-value="0" />
+                         <t t-set="total_membership" t-value="0" />
+                         <t t-set="total_sub_total" t-value="0" />
+                        
+                        
+                          <t t-foreach="docs.order_line" t-as="pro">
+                           <t t-set='total_process' t-value="total_process + pro.processing_fee"/>
+                           <t t-set="total_membership" t-value="total_membership + pro.membership_fee"/>
+                           <t t-set="total_sub_total" t-value="total_sub_total + pro.price_subtotal"/>
+                        </t>
+                         <td> <span t-esc="'{0:,}'.format(int(round(total_process+total_membership+total_sub_total)))"/></td>
+                    </tr>
+                </tbody>
+                     
+            </table>
+                </div>
+                 <div class='col-4'>
+            <table class="table table-bordered">
+                 <thead style="display: table-row-group">
+                     <tr style="background-color:#000000;color:#ffffff">
+                         <th>
+                         <span>
+                             <font class="text-white">Recieved Amount</font>
+                         </span>
+                         </th>
+                     </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <tr>
+                        
+                         <td> <span t-esc="'{0:,}'.format(int(round(docs.amount_paid)))"/></td>
+                    </tr>
+                </tbody>
+                     
+            </table>
+                </div>
+                
+                <div class='col-4'>
+            <table class="table table-bordered">
+                 <thead style="display: table-row-group">
+                     <tr style="background-color:#000000;color:#ffffff">
+                         <th>
+                         <span>
+                             <font class="text-white">Remaining Amount</font>
+                         </span>
+                         </th>
+                     </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <tr>
+                         <t t-set="total_process" t-value="0" />
+                         <t t-set="total_membership" t-value="0" />
+                         <t t-set="total_sub_total" t-value="0" />
+                        
+                        
+                          <t t-foreach="docs.order_line" t-as="pro">
+                           <t t-set='total_process' t-value="total_process + pro.processing_fee"/>
+                           <t t-set="total_membership" t-value="total_membership + pro.membership_fee"/>
+                           <t t-set="total_sub_total" t-value="total_sub_total + pro.price_subtotal"/>
+                        </t>
+                         <td> <span t-esc="'{0:,}'.format(int(round((total_process+total_membership+total_sub_total)-docs.amount_paid)))"/></td>
+                    </tr>
+                </tbody>
+                     
+            </table>
+                </div>
+            </div>
+            
+         <table class="table table-sm o_main_table">
+                <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                <thead style="display: table-row-group">
+                    <tr style="background-color:#000000;color:#ffffff">
+                        
+                <th>
+                   <span>
+                     <font class="text-white">INSTALLMENTS</font>
+                   </span>
+                </th>
+                <th>
+                   <span>
+                     <font class="text-white">Due Date</font>
+                   </span>
+                </th>
+                <th style="color:#ffffff">
+                   <span>AMOUNT</span>
+                </th>
+                <th style="color:#ffffff">
+                   <span>Amount Received</span>
+                </th>
+                <th style="color:#ffffff">
+                   <span>Due Amount</span>
+                </th>
+                    </tr>
+                </thead>
+                
+                <tbody class="sale_tbody">
+                    <tr>
+                        <td>10% Booking</td>
+                        <td></td>
+                          <t t-set="total_process" t-value="0" />
+                           <t t-set="total_amu" t-value="0" />
+                        <t t-set="total_amu_recieved" t-value="0" />
+                              <t t-foreach="docs.order_line" t-as="pros">
+                              <t t-set='total_process' t-value="total_process + pros.processing_fee"/>
+                            </t>
+                          <td> 
+                              <span t-esc="'{0:,}'.format(int(round(((docs.amount_total/100)*10)+total_process)))"/>
+                               <t t-set="total_amu" t-value="(((docs.amount_total/100)*10)+total_process)" />
+                        </td>
+                    
+                        <td>
+                            <span t-esc="'{0:,}'.format(int(round(((docs.amount_total/100)*10)+total_process)-docs.booking_amount_residual))"/>
+                            <t t-set="total_amu_recieved" t-value="((((docs.amount_total/100)*10)+total_process)-docs.booking_amount_residual)" />
+                        </td>
+                        <td>
+                            <span t-esc="'{0:,}'.format(int(round(total_amu - total_amu_recieved)))"/>
+                        </td>
+                        
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td>15% Allotment</td>
+                        <td></td>
+                       <t t-set="total_amu" t-value="0" />
+                        <t t-set="total_amu_recieved" t-value="0" />
+                          <t t-set="total_membership" t-value="0" />
+                              <t t-foreach="docs.order_line" t-as="proc">
+                              <t t-set='total_membership' t-value="total_membership + proc.membership_fee"/>
+                            </t>
+                          <td> 
+                              <span t-esc="'{0:,}'.format(int(round(((docs.amount_total/100)*15)+total_membership)))"/>
+                               <t t-set="total_amu" t-value="(((docs.amount_total/100)*15)+total_membership)" />
+                        </td>
+                    
+                        <td>
+                            <span t-esc="'{0:,}'.format(int(round(((docs.amount_total/100)*15)+total_membership)-docs.allotment_amount_residual))"/>
+                            <t t-set="total_amu_recieved" t-value="((((docs.amount_total/100)*15)+total_membership)-docs.allotment_amount_residual)" />
+                        </td>
+                        <td>
+                            <span t-esc="'{0:,}'.format(int(round(total_amu - total_amu_recieved)))"/>
+                        </td>
+                        
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td>Total 25% Advance Payment</td>
+                         <td></td>
+                        <t t-set="total_amu" t-value="0" />
+                        <t t-set="total_amu_recieved" t-value="0" />
+                          <t t-set="total_process" t-value="0" />
+                            <t t-set="total_membership" t-value="0" />
+                          <t t-foreach="docs.order_line" t-as="pro">
+                           <t t-set='total_process' t-value="total_process + pro.processing_fee"/>
+                            <t t-set="total_membership" t-value="total_membership + pro.membership_fee"/>
+                        </t>
+                                <td> <span t-esc="'{0:,}'.format(int(round(((docs.amount_total/100)*25)+total_process + total_membership)))"/> 
+                                    <t t-set="total_amu" t-value="(((docs.amount_total/100)*25)+total_process + total_membership)" />
+                        </td>
+                                <td> <span t-esc="'{0:,}'.format(int(round((((docs.amount_total/100)*25)+total_process + total_membership) - docs.booking_amount_residual - docs.allotment_amount_residual)))"/> 
+                        <t t-set="total_amu_recieved" t-value="((((docs.amount_total/100)*25)+total_process + total_membership) - docs.booking_amount_residual - docs.allotment_amount_residual)" />
+                        </td>
+                        <td>
+                            <span t-esc="'{0:,}'.format(int(round(total_amu - total_amu_recieved)))"/>
+                        </td>
+                        
+                    </tr>
+                      <t t-foreach="docs.installment_line_ids" t-as="line">
+                        <tr>
+                            
+                            <td ><span t-field="line.name"/></td>
+                            <td ><span t-field="line.date"/></td>
+                            <td ><span t-esc="'{0:,}'.format(int(round(line.total_amount)))"/></td>
+                            <td ><span t-esc="'{0:,}'.format(int(round(line.amount_paid)))"/></td>
+                             <td ><span t-esc="'{0:,}'.format(int(round(line.total_amount - line.amount_paid)))"/></td>
+                            
+                             
+                           </tr> 
+                         </t>
+                   
+                </tbody>
+                
+            </table>
+        <br/>
+            <br/>
+            <br/>
+            <p style='text-align:center'  > <b>BUYER ________________________</b></p> 
+             <br/>
+            <br/>
+              <table class='table table-sm'>
+                  <tr>
+                      <td><b> 1: WITNESS ________________________</b>  </td>
+                      <td><b> 2: WITNESS ________________________ </b>  </td>
+                  </tr>
+                   </table>
+            <table class='table table-sm'>
+                  <tr>
+                      <td><b> NAME: ________________________</b>  </td>
+                      <td><b> NAME:________________________ </b>  </td>
+                  </tr>
+                 <tr>
+                      <td><b> CNIC NO: ________________________</b>  </td>
+                      <td><b> CNIC NO:________________________ </b>  </td>
+                  </tr>
+                   </table>
+          </div>
+    </t>
+    </t>
+</template>
+      
+    <template id="payment_schedule_customer_report">
+    <t t-call="web.html_container">
+    <t t-call="web.external_layout">
+        <div class="page" style='font-size:12px;'>
+            <div class="oe_structure"/>
+             <div  class='pull-right' style="max-width: 250px;height: 20px; color:blue;margin:5px;">
+               <strong>Printed On:</strong>
+               <span  t-esc="datetime.datetime.strptime(str(datetime.datetime.now()+ relativedelta(hours =+ 5)), '%Y-%m-%d %H:%M:%S.%f').strftime('%d-%b-%y %H:%M %p')"/> <br/>
+               <strong>Customer Copy</strong>
+            </div>
+            
+             <br/>
+             <br/>
+            <div class='row'>
+            <div class='col-8'>
+                <table class='table table-sm'>
+                    <tr>
+                        <td>DATE              :</td>
+                        <td style='text-align:left;'><span t-esc='docs.date_order.strftime("%d-%b-%Y")'/></td>
+                     </tr>
+                    <tr>
+                        <td>ALLOTTEE'S NAME   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.name'/></td>
+                    </tr>
+                    <tr>
+                        <td >S/O,W/O,D/O      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.father_husband_name'/></td>
+                    </tr>                    
+                 </table>  
+            </div>
+            <div class='col-4'>
+                <img t-if="docs.partner_id.image_1920" t-att-src="image_data_uri(docs.partner_id.image_1920)" style="max-height:85pt;max-width:100%" alt="Customer Image"/>
+            </div>    
+           </div> 
+            
+                 <table class='table table-sm'>   
+                     <tr>
+                        <td >CNIC NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.nic'/></td>
+                    </tr>
+                     <tr>
+                        <td >CONTACT NO.      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.mobile'/></td>
+                    </tr>
+                    <tr>
+                        <td >EMAIL ADDRESS.   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.email'/></td>
+                    </tr>
+                     <tr>
+                        <td >ADDRESS.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.street'/></td>
+                    </tr>
+                    <t t-foreach="docs.order_line" t-as="line">
+                     <tr>
+                        <td >PLOT TYPE.       :</td>
+                        <td style='text-align:left;'><span t-esc='line.plot_type'/></td>
+                    </tr>
+                        <tr>
+                        <td >PLOT NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='line.product_id.name'/></td>
+                    </tr>
+                        <tr>
+                        <td >AREA(MARLA)         :</td>
+                        <td style='text-align:left;'><span t-esc='line.size'/></td>
+                    </tr>
+                        <tr>
+                        <td >RATE(MARLA)         :</td>
+                        <td style='text-align:left;'><span t-esc='round(float(line.rate_area_marla),2)'/></td>
+                    </tr>
+                    </t>
+            </table>
+         <br/>
+            <br/>
+            <div class="row">
+                 <div class='col-4'>
+            <table class="table table-bordered">
+                 <thead style="display: table-row-group">
+                     <tr style="background-color:#000000;color:#ffffff">
+                         <th>
+                         <span>
+                             <font class="text-white">Net Amount</font>
+                         </span>
+                         </th>
+                     </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <tr>
+                         <t t-set="total_process" t-value="0" />
+                         <t t-set="total_membership" t-value="0" />
+                         <t t-set="total_sub_total" t-value="0" />
+                        
+                        
+                          <t t-foreach="docs.order_line" t-as="pro">
+                           <t t-set='total_process' t-value="total_process + pro.processing_fee"/>
+                           <t t-set="total_membership" t-value="total_membership + pro.membership_fee"/>
+                           <t t-set="total_sub_total" t-value="total_sub_total + pro.price_subtotal"/>
+                        </t>
+                         <td> <span t-esc="'{0:,}'.format(int(round(total_process+total_membership+total_sub_total)))"/></td>
+                    </tr>
+                </tbody>
+                     
+            </table>
+                </div>
+                 <div class='col-4'>
+            <table class="table table-bordered">
+                 <thead style="display: table-row-group">
+                     <tr style="background-color:#000000;color:#ffffff">
+                         <th>
+                         <span>
+                             <font class="text-white">Recieved Amount</font>
+                         </span>
+                         </th>
+                     </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <tr>
+                        
+                         <td> <span t-esc="'{0:,}'.format(int(round(docs.amount_paid)))"/></td>
+                    </tr>
+                </tbody>
+                     
+            </table>
+                </div>
+                
+                <div class='col-4'>
+            <table class="table table-bordered">
+                 <thead style="display: table-row-group">
+                     <tr style="background-color:#000000;color:#ffffff">
+                         <th>
+                         <span>
+                             <font class="text-white">Remaining Amount</font>
+                         </span>
+                         </th>
+                     </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <tr>
+                         <t t-set="total_process" t-value="0" />
+                         <t t-set="total_membership" t-value="0" />
+                         <t t-set="total_sub_total" t-value="0" />
+                        
+                        
+                          <t t-foreach="docs.order_line" t-as="pro">
+                           <t t-set='total_process' t-value="total_process + pro.processing_fee"/>
+                           <t t-set="total_membership" t-value="total_membership + pro.membership_fee"/>
+                           <t t-set="total_sub_total" t-value="total_sub_total + pro.price_subtotal"/>
+                        </t>
+                         <td> <span t-esc="'{0:,}'.format(int(round((total_process+total_membership+total_sub_total)-docs.amount_paid)))"/></td>
+                    </tr>
+                </tbody>
+                     
+            </table>
+                </div>
+            </div>
+            
+         <table class="table table-sm o_main_table">
+                <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                <thead style="display: table-row-group">
+                    <tr style="background-color:#000000;color:#ffffff">
+                        
+                <th>
+                   <span>
+                     <font class="text-white">INSTALLMENTS</font>
+                   </span>
+                </th>
+                <th>
+                   <span>
+                     <font class="text-white">Due Date</font>
+                   </span>
+                </th>
+                <th style="color:#ffffff">
+                   <span>AMOUNT</span>
+                </th>
+                <th style="color:#ffffff">
+                   <span>Amount Received</span>
+                </th>
+                <th style="color:#ffffff">
+                   <span>Due Amount</span>
+                </th>
+                    </tr>
+                </thead>
+                
+                <tbody class="sale_tbody">
+                    <tr>
+                        <td>10% Booking</td>
+                        <td></td>
+                          <t t-set="total_process" t-value="0" />
+                           <t t-set="total_amu" t-value="0" />
+                        <t t-set="total_amu_recieved" t-value="0" />
+                              <t t-foreach="docs.order_line" t-as="pros">
+                              <t t-set='total_process' t-value="total_process + pros.processing_fee"/>
+                            </t>
+                          <td> 
+                              <span t-esc="'{0:,}'.format(int(round(((docs.amount_total/100)*10)+total_process)))"/>
+                               <t t-set="total_amu" t-value="(((docs.amount_total/100)*10)+total_process)" />
+                        </td>
+                    
+                        <td>
+                            <span t-esc="'{0:,}'.format(int(round(((docs.amount_total/100)*10)+total_process)-docs.booking_amount_residual))"/>
+                            <t t-set="total_amu_recieved" t-value="((((docs.amount_total/100)*10)+total_process)-docs.booking_amount_residual)" />
+                        </td>
+                        <td>
+                            <span t-esc="'{0:,}'.format(int(round(total_amu - total_amu_recieved)))"/>
+                        </td>
+                        
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td>15% Allotment</td>
+                        <td></td>
+                       <t t-set="total_amu" t-value="0" />
+                        <t t-set="total_amu_recieved" t-value="0" />
+                          <t t-set="total_membership" t-value="0" />
+                              <t t-foreach="docs.order_line" t-as="proc">
+                              <t t-set='total_membership' t-value="total_membership + proc.membership_fee"/>
+                            </t>
+                          <td> 
+                              <span t-esc="'{0:,}'.format(int(round(((docs.amount_total/100)*15)+total_membership)))"/>
+                               <t t-set="total_amu" t-value="(((docs.amount_total/100)*15)+total_membership)" />
+                        </td>
+                    
+                        <td>
+                            <span t-esc="'{0:,}'.format(int(round(((docs.amount_total/100)*15)+total_membership)-docs.allotment_amount_residual))"/>
+                            <t t-set="total_amu_recieved" t-value="((((docs.amount_total/100)*15)+total_membership)-docs.allotment_amount_residual)" />
+                        </td>
+                        <td>
+                            <span t-esc="'{0:,}'.format(int(round(total_amu - total_amu_recieved)))"/>
+                        </td>
+                        
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td>Total 25% Advance Payment</td>
+                         <td></td>
+                        <t t-set="total_amu" t-value="0" />
+                        <t t-set="total_amu_recieved" t-value="0" />
+                          <t t-set="total_process" t-value="0" />
+                            <t t-set="total_membership" t-value="0" />
+                          <t t-foreach="docs.order_line" t-as="pro">
+                           <t t-set='total_process' t-value="total_process + pro.processing_fee"/>
+                            <t t-set="total_membership" t-value="total_membership + pro.membership_fee"/>
+                        </t>
+                                <td> <span t-esc="'{0:,}'.format(int(round(((docs.amount_total/100)*25)+total_process + total_membership)))"/> 
+                                    <t t-set="total_amu" t-value="(((docs.amount_total/100)*25)+total_process + total_membership)" />
+                        </td>
+                                <td> <span t-esc="'{0:,}'.format(int(round((((docs.amount_total/100)*25)+total_process + total_membership) - docs.booking_amount_residual - docs.allotment_amount_residual)))"/> 
+                        <t t-set="total_amu_recieved" t-value="((((docs.amount_total/100)*25)+total_process + total_membership) - docs.booking_amount_residual - docs.allotment_amount_residual)" />
+                        </td>
+                        <td>
+                            <span t-esc="'{0:,}'.format(int(round(total_amu - total_amu_recieved)))"/>
+                        </td>
+                        
+                    </tr>
+                      <t t-foreach="docs.installment_line_ids" t-as="line">
+                        <tr>
+                            
+                            <td ><span t-field="line.name"/></td>
+                            <td ><span t-field="line.date"/></td>
+                            <td ><span t-esc="'{0:,}'.format(int(round(line.total_amount)))"/></td>
+                            <td ><span t-esc="'{0:,}'.format(int(round(line.amount_paid)))"/></td>
+                             <td ><span t-esc="'{0:,}'.format(int(round(line.total_amount - line.amount_paid)))"/></td>
+                            
+                             
+                           </tr> 
+                         </t>
+                   
+                </tbody>
+                
+            </table>
+        <br/>
+            <br/>
+            <br/>
+            <p style='text-align:center'  > <b>BUYER ________________________</b></p> 
+             <br/>
+            <br/>
+              <table class='table table-sm'>
+                  <tr>
+                      <td><b> 1: WITNESS ________________________</b>  </td>
+                      <td><b> 2: WITNESS ________________________ </b>  </td>
+                  </tr>
+                   </table>
+            <table class='table table-sm'>
+                  <tr>
+                      <td><b> NAME: ________________________</b>  </td>
+                      <td><b> NAME:________________________ </b>  </td>
+                  </tr>
+                 <tr>
+                      <td><b> CNIC NO: ________________________</b>  </td>
+                      <td><b> CNIC NO:________________________ </b>  </td>
+                  </tr>
+                   </table>
+          </div>
+    </t>
+    </t>
+</template>
+      
+    <template id="payment_schedule_report">
+        <t t-call="web.html_container">
+            
+         <t t-foreach="docs" t-as="docs">
+            <t t-call="de_property_report.payment_schedule_office_report" />
+         </t>
+            
+         <t t-foreach="docs" t-as="docs">
+            <t t-call="de_property_report.payment_schedule_customer_report" />
+         </t>   
+        </t>
+        
+    </template>
+
+      
+  </data>
+</odoo>

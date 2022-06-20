@@ -1,0 +1,130 @@
+<odoo>
+  <data>
+      
+    <record id="view_sale_qutation_tree_payments" model="ir.ui.view">
+		<field name="name">sale.order.tree.qutation.pay</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding" />
+		<field name="arch" type="xml">
+            
+			<xpath expr="//field[@name = 'state']" position="before">
+                <field name="amount_paid"  string='Amount Paid'/>
+                <field name="amount_residual" string='Amount Due' readonly='1'/>
+                <field name="booking_amount_residual"  readonly='1' />
+                <field name="allotment_amount_residual"  readonly='1' />
+                <field name="installment_amount_residual"  string='Installment Due' readonly='1' />
+			</xpath>
+            
+            
+            
+		</field>
+	</record>
+	
+	
+	<record id="view_sale_order_tree_payments" model="ir.ui.view">
+		<field name="name">sale.order.tree.order.pay</field>
+		<field name="model">sale.order</field>
+        
+		<field name="inherit_id" ref="sale.view_order_tree" />
+		<field name="arch" type="xml">            
+			<xpath expr="//field[@name = 'state']" position="before">
+                <field name="amount_paid"  optional='show'/>
+                <field name="amount_residual" optional='show'/>
+                <field name="booking_amount_residual"  optional='hide' />
+                <field name="allotment_amount_residual"  optional='hide'/>
+                <field name="installment_amount_residual"  optional='hide' />
+			</xpath>            
+		</field>
+	</record>
+              
+       
+      
+        <record id="sale_order_form_view_payments" model="ir.ui.view">
+			<field name="name">sale.order.form.view.payments</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			 <field name="arch" type="xml">
+                                
+                <xpath expr="//header" position="replace">
+                    <header>
+                      <button name="action_register_payment"  type="object" string="Register Payment" attrs="{'invisible': ['|', ('state', 'in', ['done','cancel']),('amount_residual','&lt;=', 0)]}"  class="oe_highlight" />  
+                    
+                      <button name="action_generate_installment"  type="object" string="Generate Installment"  attrs="{'invisible': ['|', ('state', 'not in', ['draft','booked','sale']),('installment_created','=',True)]}" class="oe_highlight" />
+                     <field name="state" widget="statusbar" statusbar_visible="draft,sent,booked,sale"/>
+                   </header>
+                </xpath>                 
+                
+                 
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="processing_fee_submit"    invisible='1'/>
+                    <field name="membership_fee_submit"   invisible='1' />
+                    <field name="amount_paid"  string='Total Amount Paid'/>
+                    <field name="disc" readonly='1'/>
+                    <field name="amount_residual" string='Total Amount Due' readonly='1'/>
+                    <field name="booking_amount_residual"  readonly='1' />
+                    <field name="allotment_amount_residual"  readonly='1' />
+                    <field name="installment_amount_residual"  string='Installment Amount Due' readonly='1' />
+                </xpath>   
+                 
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="installment_created"  invisible='1'/>
+                    <field name="create_date" invisible='1'/>
+                    <field name="received_percent" invisible='1' />
+                </xpath>    
+                <xpath expr="//field['order_line']//tree//field[@name='product_id']" position="replace">                       <field name="product_id" domain="[('product_tmpl_id.state', 'in', ('available','unconfirm','reserved'))]" />
+                </xpath> 
+                 
+                 <xpath expr="//field['order_line']//tree//field[@name='discount']" position="replace">                                        <field name="discount" readonly='1' />
+                 </xpath> 
+                 
+                <xpath expr="//field['order_line']//tree//field[@name='price_subtotal']" position="before"> 
+                     <field name="commission_type" />
+                    <field name="comission_amount" />  
+                    <field name="processing_fee" sum="Total"/>
+                    <field name="membership_fee" sum="Total"/>
+                </xpath>    
+                 
+                <xpath expr="//div[@name='button_box']" position="inside">
+                     <button name="action_view_payments" type="object" class="oe_stat_button" state='done' icon="fa-pencil-square-o"  attrs="{'invisible': [('bill_count', '=', 0)]}">
+                        <field name="bill_count" widget="statinfo" string="Payments"/>
+                     </button>  
+                    <button name="action_view_batch_payments" type="object" class="oe_stat_button" state='done' icon="fa-pencil-square-o"  attrs="{'invisible': [('batch_bill_count', '=', 0)]}">
+                        <field name="batch_bill_count" widget="statinfo" string="Batch Payments"/>
+                     </button>  
+                </xpath>
+                 <xpath expr="//notebook" position="inside">
+                     <page string='Installments' >
+                      <field name="installment_line_ids" >
+                         <tree editable="bottom" >
+                            <field name="name" readonly='1'/> 
+                            <field name="date" />
+                            <field name="payment_date" readonly='1' /> 
+                            <field name="total_amount"/> 
+                            <field name="amount_paid" readonly='1'/>  
+                            <field name="amount_residual"/>
+                            <field name="total_actual_amount" invisible='1' /> 
+                            <field name="remarks" readonly='1'/>   
+                            <field name="order_id" invisible='1' />  
+                            <field name="is_discount_ded" invisible='1' />   
+                         </tree>                         
+                     </field> 
+                   </page>    
+                     <page string='Resellers' >
+                      <field name="reseller_ids" attrs="{'readonly': [('state', '=', 'done')]}">
+                          <tree editable='bottom'> 
+                              <field name="partner_id" /> 
+                              <field name="date" />
+                              <field name="customer_id" />
+                              <field name="amount_paid" /> 
+                              <field name="amount_residual" /> 
+                              <field name="order_id"  invisible='1'/> 
+                          </tree>
+                      </field>    
+                   </page>    
+                </xpath>
+                 
+             </field>
+          </record> 
+      
+  </data>
+</odoo>

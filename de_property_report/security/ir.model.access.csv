@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_advance_receivable_wizard,access.advance.receivable.wizard,model_advance_receivable_wizard,,1,1,1,1
+access_plot_status_wizard,access.plot.status.wizard,model_plot_status_wizard,,1,1,1,1
+access_plot_detail_wizard,access.plot.detail.wizard,model_plot_detail_wizard,,1,1,1,1
+access_dealer_report_wizard,access.dealer.report.wizard,model_dealer_report_wizard,,1,1,1,1

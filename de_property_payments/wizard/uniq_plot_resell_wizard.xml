@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo> 
+        <!--Display form view of wizard-->    
+        <record id="view_uniq_plot_resell_wizard_form" model="ir.ui.view">
+            <field name="name">uniq.plot.resell.wizard.form</field>
+            <field name="model">uniq.plot.resell.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Resell">
+                    <group>
+                      <group>
+                          <field name="partner_id" />
+                          
+                          <field name="reseller_id"  readonly='1'/>
+                      </group>
+                      <group>
+                          <field name="resell_date" />
+                          <field name="is_process_fee" />
+                          <field name="product_ids"  widget='many2many_tags' invisible='1'/>                          
+                      </group>                        
+                    </group>                   
+                    <footer>
+                        <button string='Confirm' name="action_confirm" type="object" default_focus="1" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--Open the wizard on click of menu-->
+        <record id="open_uniq_plot_resell_wizard_action" model="ir.actions.act_window">
+            <field name="name">Reselling</field>
+            <field name="res_model">uniq.plot.resell.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_uniq_plot_resell_wizard_form" />
+         </record>
+    
+    </odoo>
+    
+    
+    
+    

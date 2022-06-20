@@ -1,0 +1,351 @@
+<odoo>
+    <data>
+    
+        <!-- Property Unit Features -->
+        <record id="product_template_feature_line_search_view" model="ir.ui.view">
+            <field name="name">product.template.feature.line.seach.view</field>
+            <field name="model">product.template.feature.line</field>
+            <field name="arch" type="xml">
+                <search string="Product Features">
+                    <field name="name" string="Features"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Group" name="groupby_feature_group" context="{'group_by': 'property_unit_feature_group_id'}"/>
+                        <separator/>
+                        <filter string="Feature Group" name="feature_group" domain="[]" context="{'group_by': 'property_unit_feature_group_id'}"/>
+                        <filter string="Feature" name="feature" domain="[]" context="{'group_by': 'property_unit_feature_id'}"/>
+                    </group>
+                    <searchpanel>
+                      <field name="property_unit_feature_group_id" icon="fa-retweet" enable_counters="1"/>
+                     </searchpanel>
+                </search>
+            </field>
+        </record>
+        
+        <record id="product_template_feature_line_tree_view" model="ir.ui.view">
+            <field name="name">product.template.feature.line.tree.view</field>
+            <field name="model">product.template.feature.line</field>
+            <field eval="50" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Product Features" >
+                    <field name="property_unit_feature_id"/>
+                    <field name="name" string="Value"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_product_property_feature_all" model="ir.actions.act_window">
+            <field name="name">Features</field>
+            <field name="res_model">product.template.feature.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="de_property.product_template_feature_line_search_view"/>
+            <field name="context">{'create': False, }</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No property found. Let's create one!
+              </p>
+            </field>
+        </record>
+        
+        
+        <!-- Property Units -->
+        <record id="product_property_unit_variants_form_view" model="ir.ui.view">
+            <field name="name">product.property.unit.variants.form.view</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <form string="Variant Information" duplicate="false">
+                    <header>
+                        <button string="Print Labels" type="object" name="action_open_label_layout"/>
+
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="active" invisible="1"/>
+                        <field name="id" invisible="1"/>
+
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                        <div class="oe_title">
+                            <label for="name" string="Product Name"/>
+                            <h1><field name="name" readonly="1" placeholder="e.g. Dulux Apartment"/></h1>
+                            <field name="product_template_attribute_value_ids" widget="many2many_tags" readonly="1"/>
+                            <p>
+                                <span>All general settings about this property units are managed on</span>
+                                <button name="open_product_template" type="object" string="the property unit." class="oe_link oe_link_product pl-0 ml-1 mb-1"/>
+                            </p>
+                        </div>
+                        <group>
+                            <group name="codes" string="Codes">
+                                <field name="default_code"/>
+                                <field name="barcode"/>
+                                <field name="type" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            
+                           
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="product_property_unit_variants_tree_view" model="ir.ui.view">
+            <field name="name">product.property.unit.variant.tree.view</field>
+            <field name="model">product.product</field>
+            <field eval="50" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Product Variants">
+                    <field name="default_code"/>
+                    <field name="name"/>
+                    <field name="product_template_attribute_value_ids" widget="many2many_tags" groups="product.group_product_variant"/>
+                    <field name="standard_price"/>
+                    <field name="uom_id" options="{'no_open': True, 'no_create': True}" groups="uom.group_uom"/>
+                    <field name="barcode"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- unit variants for product unit -->
+        <record id="product_property_unit_variant_action" model="ir.actions.act_window">
+            <field name="name">Property Unit Variants</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product</field>
+            <field name="context">{'search_default_product_tmpl_id': [active_id], 'default_product_tmpl_id': active_id, 'create': False}</field>
+            <field name="search_view_id" ref="product.product_search_form_view"/>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('de_property.product_property_unit_variants_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('de_property.product_property_unit_variants_form_view')}),
+                          (0, 0, {'view_mode': 'kanban'})]"/>
+             <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new property unit variant
+              </p>
+            </field>
+        </record>
+        
+        <!-- Property Units -->
+        <record id="product_property_unit_form_view" model="ir.ui.view">
+            <field name="name">product.property.unit.form.view</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form string="Property Products">
+                    <header>
+                        <button string="Print Labels" type="object" name="action_open_label_layout"/>
+                        <field name="state" widget="statusbar" statusbar_visible="available,unconfirm,reserved,booked,un_posted_sold,posted_sold"/>
+                    </header>
+                    <sheet>
+                        <field name="product_variant_count" invisible="1"/>
+                        <field name="is_product_variant" invisible="1"/>
+                        <field name="attribute_line_ids" invisible="1"/>
+                        <field name="type" invisible="1"/>
+                        <div class="oe_button_box" name="button_box">
+                            
+
+                           <button name="action_view_batch_payments" type="object" class="oe_stat_button" state='done' icon="fa-pencil-square-o"  attrs="{'invisible': [('batch_bill_count', '=', 0)]}">
+                        <field name="batch_bill_count" widget="statinfo" string="Batch Payments"/>
+                     </button> 
+                            
+                        </div>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="id" invisible="True"/>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                        <div class="oe_title">
+                            <label for="name" string="Unit Name" />
+                            <h1><field name="name" placeholder="e.g. Dulux Apartment"/></h1>
+                            <div name="options" invisible="1">
+                                <div>
+                                    <field name="can_be_property"/>
+                                    <label for="can_be_property"/>
+                                </div>
+                            </div>
+                        </div>
+                        <notebook colspan="4">
+                            <page name="general_inf" string="General Information">
+                                <group name="product_details">
+                                    <group>
+                                        <field name="detailed_type"/>
+                                        <field name="booking_id" readonly='1'/>
+                                        <field name="categ_id" string="Unit Category"/>
+                                        <field name="property_location_id" string="Location" required="0" options="{'no_create': True}" />
+                                        <field name="plot_size"/>
+                                        <field name="property_amenities_id" />
+                                        <field name="amenities_percent" />
+                                        <field name="road_width"/>
+                                        <field name="plot_area_marla"/>
+                                        <field name="plot_area_sft"/>
+                                        <field name="property_type_id" />
+                                        <field name="property_unit_type_id" string="Unit Type" required="0" options="{'no_create': True}" domain="[('property_type_id','=',property_type_id)]" invisible="1"/>
+                                        <field name="plot_type"/>
+                                        <field name="plot_file"/>
+                                    </group>
+                                    <group string="">
+                                        <field name="active" invisible="1"/>
+                                        <field name="type" invisible="1"/>
+                                        <field name="list_price"/>
+                                        <field name="booking_amount" readonly='1'/>
+                                        <field name="allottment_amount"  readonly='1'/>
+                                        <field name="installment_amount"  readonly='1'/>
+                                        <field name="partner_id" readonly='1'/>
+                                        <field name="cnic" />
+                                        <field name="phone" />
+                                        <field name="mobile" />
+                                        <field name="date_reservation"/>
+                                        <field name="booking_validity"/>
+                                        <field name="date_validity"/>
+                                        <field name="token_validity"/>
+                                        <field name="partner_role" readonly='1'/>
+                                        <field name="standard_price" help="When the cost of an expense product is different than 0, then the user using this product won't be able to change the amount of the expense, only the quantity. Use a cost different than 0 for expense categories funded by the company at fixed cost like allowances for mileage, per diem, accomodation or meal."/>
+                                        <field name="uom_id" groups="uom.group_uom" options="{'no_create': True}"/>
+                                        <field name="uom_po_id" invisible="1"/>
+                                        
+                                        <label for="default_code" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"/>
+                                        <div attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}">
+                                            <field name="default_code" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"/>
+                                            <i class="text-muted oe_edit_only">Use this reference as a subject prefix when submitting by email.</i>
+                                        </div>
+                                        <label for="barcode" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"/>
+                                        <div attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}">
+                                            <field name="barcode" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"/>
+                                            <i class="text-muted oe_edit_only">Use this reference as a subject prefix when submitting by email.</i>
+                                        </div>
+                                        
+                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                    </group>
+                                
+                                      </group>
+                                <group string="Internal Notes">
+                                    <field name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
+                                </group>
+                            </page>
+                            <page name="paymnet_tab" string="Payments Details">
+                                <field name='payment_ids' readonly='1'/>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="amount_paid">
+                                    <field name="amount_paid" />
+                                    <field name="commission_amount" />
+                                    <field name="discount_amount" />
+                                    <field name="amount_residual" />
+                                    
+                                </group>
+                                
+                                <div class="oe_clear"/>
+                            </page>    
+                            <page name="variants" string="Attributes &amp; Variants" groups="product.group_product_variant" invisible="1">
+                                <field name="attribute_line_ids" widget="one2many" context="{'show_attribute': False}">
+                                    <tree string="Variants" editable="bottom" decoration-info="value_count &lt;= 1">
+                                        <field name="value_count" invisible="1"/>
+                                        <field name="attribute_id" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                        <field name="value_ids" widget="many2many_tags" options="{'no_create_edit': True, 'color_field': 'color'}" context="{'default_attribute_id': attribute_id, 'show_attribute': False}"/>
+                                        <button string="Configure" class="float-right btn-secondary" type="object" name="action_open_attribute_values" groups="product.group_product_variant"/>
+                                    </tree>
+                                </field>
+                                <p class="oe_grey oe_edit_only">
+                                    <strong>Warning</strong>: adding or deleting attributes
+                                    will delete and recreate existing variants and lead
+                                    to the loss of their possible customizations.
+                                </p>
+                            </page>
+                            
+
+                            <page name="owners" string="Owners">
+                                <field name="property_owner_ids" nolabel="1" >
+                                    <tree string="Partner Line" editable="bottom" >
+                                        <field name="product_tmpl_id" invisible="1" />
+                                        <field name="name" invisible="1" />
+                                        <field name="partner_id" options="{'no_create_edit': True}" />
+                                        <field name="date_owner" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="product_property_unit_tree_view" model="ir.ui.view">
+            <field name="name">product.product.expense.tree</field>
+            <field name="model">product.template</field>
+            <field eval="50" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Product Variants">
+                    <field name="name"/>
+                    <field name="plot_area_marla"/>
+                    <field name="default_code" optional="hide"/>
+                    
+                    <field name="partner_id"/>
+                    <field name="cnic" optional='hide'/>
+                    <field name="phone" />
+                    <field name="mobile" />
+                    <field name="booking_id"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="cost_currency_id" invisible="1"/>
+                    <field name="priority" optional="hide" widget="priority" nolabel="1"/>
+                    <field name="responsible_id" widget="many2one_avatar_user" optional="hide"  />
+                    <field name="list_price"/>
+                    <field name="amount_paid"/>
+                    <field name="discount_amount"/>
+                    <field name="commission_amount"/>
+                    <field name="amount_residual"/>
+                    <field name="standard_price" optional="hide"/>
+                    <field name="uom_id" optional="hide" options="{'no_open': True, 'no_create': True}" groups="uom.group_uom"/>
+                    <field name="barcode" optional="hide" />
+                    <field name="categ_id" optional="hide"/>
+                    <field name="detailed_type" optional="hide" readonly="1"/>
+                    <field name="type" invisible="1"/>
+                    <field name="company_id" options="{'no_create_edit': True}" groups="base.group_multi_company" optional="hide"/>
+                    <field name="uom_id" readonly="1" optional="hide" groups="uom.group_uom"/>
+                    <field name="active" invisible="1"/>
+                    <field name="state" />
+                    <field name="activity_exception_decoration" optional="hide" widget="activity_exception"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_product_property_units" model="ir.actions.act_window">
+            <field name="name">Plots</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('product_property_unit_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('product_property_unit_form_view')})]"/>
+          
+            <field name="context">{"default_can_be_property": 1, 'default_detailed_type': 'product'}</field>
+            <field name="domain">[('can_be_property', '=', True)]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No property found. Let's create one!
+              </p>
+            </field>
+        </record>
+        
+      
+        
+        <record id="action_product_property_unit_variants" model="ir.actions.act_window">
+            <field name="name">Plots</field>
+            <field name="res_model">product.product</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('product_property_unit_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('product_property_unit_form_view')})]"/>
+            <field name="search_view_id" ref="product.product_search_form_view"/>
+            <field name="context">{"default_can_be_property": 1, 'default_detailed_type': 'product'}</field>
+            <field name="domain">[('can_be_property', '=', True)]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No property found. Let's create one!
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_product_property_unit_variants" name="Plots" parent="menu_property_property"
+            action="action_product_property_unit_variants" groups="de_property.group_property_manager" sequence="1"/>
+    </data>
+</odoo>

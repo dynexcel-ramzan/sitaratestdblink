@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+
+      
+    <record id="view_res_partner_tree_inhrt" model="ir.ui.view">
+		<field name="name">res.partner.tree</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_tree" />
+		<field name="arch" type="xml">
+            <xpath expr="//field[@name = 'display_name']" position="after">
+                <field name="ref" string="ID" />
+			</xpath>
+            
+		</field>
+	</record>
+      
+      
+    <record id="view_res_pa3453rtner_inhrt" model="ir.ui.view">
+		<field name="name">res.partner.form</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form" />
+		<field name="arch" type="xml">
+            <xpath expr="//field[@name = 'ref']" position="replace"/>
+            <xpath expr="//field[@name = 'category_id']" position="after">
+                <field name="ref" string="ID" />
+			</xpath>
+            <xpath expr="//sheet/group" position="after">
+                    <group string="PERSONAL CREDENTIALS" attrs="{'invisible':[('is_dealer','!=',True)]}">
+                        <group>
+                            <field name="date" attrs="{'invisible':[('is_dealer','!=',True)]}"/>
+                            <field name="business" attrs="{'invisible':[('is_dealer','!=',True)]}"/>
+                            <field name="is_dealer" invisible="1"/>
+<!--                             <field name="user_id" />
+                            <field name="team_id" groups="base.group_no_one"/> -->
+
+                        </group>
+                        <group>
+                            <field name="region" attrs="{'invisible':[('is_dealer','!=',True)]}"/>
+                        </group>
+                    </group>
+			</xpath>
+            
+		</field>
+	</record>
+
+    <record id="view_res_partner_inhrt" model="ir.ui.view">
+		<field name="name">res.partner.form</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//notebook/page[1]" position="before" >
+                <page name="dealer_on_boarding" string="On-Boarding Form" attrs="{'invisible':[('is_dealer','=',False)]}">
+                    
+                    <group string="PREVIOUS WORK EXPERIENCE">
+                        <group>
+                            <field name="exp_year" />
+                        </group>
+                        <group>
+                            <field name="dealer_type" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="selling_property_experience"  widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="scope_of_work" widget="radio"/>
+                            <field name="joint_visit_done" widget="radio"/>
+                        </group>
+                         <group>
+                            <field name="proposed_sales_executive"  widget="signature"/>
+                        </group>
+                        <group>
+                            <field name="territory" widget="signature"/>
+                        </group>
+
+                    </group>
+
+                </page>
+
+			</xpath>
+		</field>
+	</record>
+
+  </data>
+</odoo>

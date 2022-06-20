@@ -1,0 +1,49 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_order_form_inherit">
+        <field name="name">view.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+          
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="father_husband_name"  />
+                <field name="nic"  />
+                <field name="nationality"  />
+                <field name="passport"  />
+                <field name="ntn"  />
+                <field name="street"  />
+                <field name="phone"  />
+                <field name="mobile"  />
+                 
+            </xpath>
+            
+            <xpath expr="//notebook" position="inside">
+                <page string='Nominee'> 
+                 <field name="Nominee_line_ids">
+                <tree editable="bottom">
+                <field name="name"  string='Nominee'/>  
+                <field name="father_husband_name"  />
+                <field name="relation_applicant" />
+                <field name="nic" placeholder="e.g 3460344332225" />
+                <field name="nationality" /> 
+                <field name="passport" /> 
+                <field name="ntn" placeholder="e.g 1359640-3"/>
+                <field name="street" string="Address" />
+                <field name="phone"  />
+                <field name="mobile"  />
+                    </tree>
+                </field>
+                </page>
+                 
+            </xpath>
+            
+             <xpath expr="//field[@name='order_line']/tree/field[@name ='price_unit']" position="before">
+                <field name="plot_type"/>
+                <field name="rate_area_marla"/>
+                <field name="size"/>
+            </xpath>
+        </field>
+    </record>
+  </data>
+</odoo>

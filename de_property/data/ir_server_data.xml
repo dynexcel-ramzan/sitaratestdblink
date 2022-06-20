@@ -1,0 +1,79 @@
+<odoo>
+  <data noupdate="0">
+       <record id="assign_property_dealer_server_action" model="ir.actions.server">
+                  <field name="name">Assign Dealer/Customer</field>
+                  <field name="model_id" ref="product.model_product_product"/>
+                  <field name="binding_model_id" ref="product.model_product_product"/>            
+                  <field name="binding_view_types">list</field>
+                  <field name="state">code</field>
+                  <field name="code">action = records.action_assign_partner() </field>
+    </record>
+    <record id="assign_property_token_server_action" model="ir.actions.server">
+                  <field name="name">Assign Token</field>
+                  <field name="model_id" ref="product.model_product_product"/>
+                  <field name="binding_model_id" ref="product.model_product_product"/>            
+                  <field name="binding_view_types">list</field>
+                  <field name="state">code</field>
+                  <field name="code">action = records.action_assign_token() </field>
+    </record>
+      
+     <record id="unreserver_token_server_action" model="ir.actions.server">
+                  <field name="name">Un-Reserve</field>
+                  <field name="model_id" ref="product.model_product_product"/>
+                  <field name="binding_model_id" ref="product.model_product_product"/>            
+                  <field name="binding_view_types">list</field>
+                  <field name="state">code</field>
+                  <field name="code">action = records.action_unreserve_token() </field>
+    </record>  
+     <record id="assign_property_dealer_server_action_form" model="ir.actions.server">
+                  <field name="name">Assign Dealer/Customer</field>
+                  <field name="model_id" ref="product.model_product_product"/>
+                  <field name="binding_model_id" ref="product.model_product_product"/>            
+                  <field name="binding_view_types">form</field>
+                  <field name="state">code</field>
+                  <field name="code">action = records.action_assign_partner() </field>
+    </record>
+    <record id="assign_property_token_server_action_form" model="ir.actions.server">
+                  <field name="name">Assign Token</field>
+                  <field name="model_id" ref="product.model_product_product"/>
+                  <field name="binding_model_id" ref="product.model_product_product"/>            
+                  <field name="binding_view_types">form</field>
+                  <field name="state">code</field>
+                  <field name="code">action = records.action_assign_token() </field>
+    </record>
+      
+     <record id="unreserver_token_server_action_form" model="ir.actions.server">
+                  <field name="name">Un-Reserve</field>
+                  <field name="model_id" ref="product.model_product_product"/>
+                  <field name="binding_model_id" ref="product.model_product_product"/>            
+                  <field name="binding_view_types">form</field>
+                  <field name="state">code</field>
+                  <field name="code">action = records.action_unreserve_token() </field>
+    </record>  
+      
+      
+      <record id="generate_booking_server_action_form" model="ir.actions.server">
+                  <field name="name">Generate Booking</field>
+                  <field name="model_id" ref="product.model_product_product"/>
+                  <field name="binding_model_id" ref="product.model_product_product"/>            
+                  <field name="binding_view_types">form</field>
+                  <field name="state">code</field>
+                  <field name="code">action = records.action_generate_booking() </field>
+      </record>
+      
+      
+      <record id="generate_booking_server_action_list_view" model="ir.actions.server">
+                  <field name="name">Generate Booking</field>
+                  <field name="model_id" ref="product.model_product_product"/>
+                  <field name="binding_model_id" ref="product.model_product_product"/>            
+                  <field name="binding_view_types">list</field>
+                  <field name="state">code</field>
+                  <field name="code">
+                         for rec in records: 
+                             action = rec.action_generate_booking() 
+                  </field>
+      </record>  
+            
+  </data>
+        
+</odoo>

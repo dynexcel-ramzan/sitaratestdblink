@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_order_installment_line,access.order.installment.line,model_order_installment_line,,1,1,1,1
+access_register_pay_wizard,access.register.pay.wizard,model_register_pay_wizard,,1,1,1,1
+access_register_installment_wizard,access.register.installment.wizard,model_register_installment_wizard,,1,1,1,1
+access_plot_resell_wizard,access.plot.resell.wizard,model_plot_resell_wizard,,1,1,1,1
+access_plot_reseller_line,access.plot.reseller.line,model_plot_reseller_line,,1,1,1,1
+access_uniq_plot_resell_wizard,access.uniq.plot.resell.wizard,model_uniq_plot_resell_wizard,,1,1,1,1
+access_uniq_reseller_line,access.uniq.reseller.line,model_uniq_reseller_line,,1,1,1,1
+access_booking_discount_wizard,access.booking.discount.wizard,model_booking_discount_wizard,,1,1,1,1

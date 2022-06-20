@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+
+    <record id="views_commission_rate_tree" model="ir.ui.view">
+        <field name="name">commission.rate.tree</field>
+        <field name="model">sale.dealer.commission.rate</field>
+        <field name="arch" type="xml">
+            <tree string="Commission Rate" editable="bottom">
+                <field name="dealer_id"/>
+                <field name="commission_rate" widget="percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="views_commission_rate_action" model="ir.actions.act_window">
+        <field name="name">Commission Rate</field>
+        <field name="res_model">sale.dealer.commission.rate</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>
+

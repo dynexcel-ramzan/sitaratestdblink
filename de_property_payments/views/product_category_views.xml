@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+      
+        <record id="product_category_form_view_fee" model="ir.ui.view">
+			<field name="name">product.category.form.view.fee</field>
+			<field name="model">product.category</field>
+			<field name="inherit_id" ref="product.product_category_form_view"/>
+			 <field name="arch" type="xml">                 
+                <xpath expr="//field[@name='parent_id']" position="after">
+                       <field name='process_fee' />
+                       <field name='allottment_fee' />
+                </xpath>                 
+             </field>
+          </record> 
+      
+  </data>
+</odoo>

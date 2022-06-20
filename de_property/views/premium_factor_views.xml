@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+
+        
+        <!-- Property Type -->
+        <record id="op_premium_factor_form_view" model="ir.ui.view">
+            <field name="name">op.premium.factor.form.view</field>
+            <field name="model">op.premium.factor</field>
+            <field name="arch" type="xml">
+                <form string="Premium">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Premium Fator" />
+                            <h1><field name="name" placeholder="e.g. Premium Factor"/></h1>
+                        </div>
+                        <group>
+                        <group>
+                           </group>
+                              <group>
+                                   <field name="percent"/>
+                           </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+         <record id="view_op_premium_factor_tree" model="ir.ui.view">
+        <field name="name">view.op.premium.factor.tree</field>
+        <field name="model">op.premium.factor</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <tree string="Premium">
+                <field name="name"/>
+                <field name="percent"/>
+            </tree>
+        </field>
+        </record>
+        <record id="action_op_premium_factor" model="ir.actions.act_window">
+            <field name="name">Premium Factor</field>
+            <field name="res_model">op.premium.factor</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No property types found. Let's create one!
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_op_premium_factor" name="Premium Factor" parent="de_property.menu_property_config"
+            action="action_op_premium_factor" sequence="12"/>
+        
+        <!-- Property amenities -->
+     
+        
+       
+        
+       
+    </data>
+</odoo>

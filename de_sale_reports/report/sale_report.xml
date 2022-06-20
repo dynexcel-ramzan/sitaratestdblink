@@ -1,0 +1,12 @@
+<odoo>
+  <data>
+         <report id="open_acc_ledger_report"
+            model="report.de_sale_reports.acc_ledger_report_xlx"
+            string="Partner Ledger Report"
+            report_type="xlsx"
+            name="de_sale_reports.acc_ledger_report_xlx"
+            file="de_sale_reports.acc_ledger_report_xlx"
+        />
+
+  </data>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data noupdate="0">
+        <record model="ir.sequence" id="sequence_commission">
+            <field name="name">Commission Sequence</field>
+            <field name="code">sale.dealer.commission.line</field>
+            <field name="prefix">COMM-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+    </data>
+    
+    
+    <!--    This record is for generating task sequence-->
+    <data noupdate="1">
+        <record model="ir.sequence" id="sequence_deaeler">
+            <field name="name">Dealer Sequence</field>
+            <field name="code">dealer.sequence</field>
+            <field name="prefix">D-</field>
+            <field name="padding">1</field>
+            <field name="company_id" eval="True"/>
+        </record>
+        
+        <record id="walk_in_customer" model="utm.source">
+            <field name="name">Walk in Customer</field>
+    </record>
+        
+    </data>
+    
+    
+</odoo>

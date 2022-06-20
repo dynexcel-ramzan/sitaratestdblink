@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo> 
+        <!--Display form view of wizard-->    
+        <record id="view_assign_token_wizard_form" model="ir.ui.view">
+            <field name="name">assign.token.wizard.form</field>
+            <field name="model">assign.token.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Assignment">
+                    <group>
+                      <group>
+                          <field name="token_amount" />
+                          <field name="date" />
+                          <field name="partner_id" />
+                          <field name="date_validity" />
+                          <field name="booking_validity" />
+                      </group>
+                      <group>
+                          <field name="journal_id"  string='Bank' />
+                           <field name="check_number" />
+                           <field name="date_reservation" />
+                          <field name="product_ids" widget="many2many_tags" invisible="1"/>
+                          
+                      </group>
+                        
+                    </group>
+                   
+                    <footer>
+                        <button string='Assign' name="action_assign_token" type="object" default_focus="1" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--Open the wizard on click of menu-->
+        <record id="open_assign_token_wizard_action" model="ir.actions.act_window">
+            <field name="name">Token Assignment</field>
+            <field name="res_model">assign.token.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_assign_token_wizard_form" />
+         </record>
+    
+    </odoo>
+    
+    
+    
+    

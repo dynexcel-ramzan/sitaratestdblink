@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    
+     <menuitem id="menue_dealer" name="Dealer" sequence="12" />
+    
+         <menuitem id="menu_dealer_info" name="Dealer" parent="menue_dealer" sequence="1" action="action_view_dealer"/>
+         <menuitem id="menu_commission" name="Commission" parent="menue_dealer" sequence="2" />
+             <menuitem id="menu_commission_line" name="Commission Line" parent="menu_commission" sequence="1" action="action_commission_line"/>
+         <menuitem id="menu_configuration" name="Configuration" parent="menue_dealer" sequence="3"/>
+             <menuitem id="menu_commission_rate" name="Commition Rate" parent="menu_configuration" sequence="1" action="views_commission_rate_action"/>
+
+
+</odoo>
+

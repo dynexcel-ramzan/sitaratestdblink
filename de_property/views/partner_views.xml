@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <!-- Landlord -->
+        <record id="action_property_partner_owner" model="ir.actions.act_window">
+            <field name="name">Property Owner</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No owner found. Let's create one!
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_property_partner_owner" name="Landlord" parent="menu_property_partner"
+            action="action_property_partner_owner" groups="de_property.group_property_user" sequence="10"/>
+        
+         <!-- Landlord -->
+        <record id="action_property_partner_tenant" model="ir.actions.act_window">
+            <field name="name">Tenant</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No tenant found. Let's create one!
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_property_partner_tenant" name="Tenant" parent="menu_property_partner"
+            action="action_property_partner_tenant" groups="de_property.group_property_user" sequence="20"/>
+        
+        
+    </data>
+</odoo>

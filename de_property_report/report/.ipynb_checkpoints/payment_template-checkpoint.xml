@@ -1,0 +1,319 @@
+<odoo>
+  <data>
+  <template id="payment_office_report">
+    <t t-call="web.html_container">
+    <t t-call="web.external_layout">
+        <div class="page" >
+            <div class="oe_structure"/>
+             <div  class='pull-right' style="max-width: 250px;height: 20px; color:blue;margin:5px;">
+               <strong>Printed On:</strong>
+               <span  t-esc="datetime.datetime.strptime(str(datetime.datetime.now()+ relativedelta(hours =+ 5)), '%Y-%m-%d %H:%M:%S.%f').strftime('%d-%b-%y %H:%M %p')"/> <br/>
+               <strong>Office Copy</strong>
+            </div>
+            
+             <br/>
+             <br/>
+            <div class='row'>
+            <div class='col-8'>
+                <table class='table table-sm'>
+                    <tr>
+                        <td>DATE              :</td>
+                        <td style='text-align:left;'>
+                            <t t-if ='docs.date_reservation'>
+                            <span t-esc='docs.date_reservation.strftime("%d-%b-%Y")'/>
+                            </t>
+                        </td>
+                     </tr>
+                    <tr>
+                        <td>ALLOTTEE'S NAME   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.name'/></td>
+                    </tr>
+                    <tr>
+                        <td >S/O,W/O,D/O      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.father_husband_name'/></td>
+                    </tr>                    
+                 </table>  
+            </div>
+            <div class='col-4'>
+                <img t-if="docs.partner_id.image_1920" t-att-src="image_data_uri(docs.partner_id.image_1920)" style="max-height:85pt;max-width:100%" alt="Customer Image"/>
+            </div>    
+           </div> 
+            
+                 <table class='table table-sm'>   
+                     <tr>
+                        <td >CNIC NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.nic'/></td>
+                    </tr>
+                     <tr>
+                        <td >CONTACT NO.      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.mobile'/></td>
+                    </tr>
+                    <tr>
+                        <td >EMAIL ADDRESS.   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.email'/></td>
+                    </tr>
+                     <tr>
+                        <td >ADDRESS.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.street'/></td>
+                    </tr>
+                     <tr>
+                        <td >PLOT TYPE.       :</td>
+                        <td style='text-align:left;'><span t-esc='docs.property_type_id'/></td>
+                    </tr>
+                        <tr>
+                        <td >PLOT NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.name'/></td>
+                    </tr>
+                        <tr>
+                        <td >AREA(MARLA)         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.plot_area_marla'/></td>
+                    </tr>
+                        <tr>
+                        <td >RATE(MARLA)         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.plot_file'/></td>
+                    </tr>
+                     <tr>
+                        <td >PLOT VALUE         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.list_price'/></td>
+                    </tr>
+                    
+            </table>
+         <table class="table table-sm o_main_table">
+                <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                <thead style="display: table-row-group">
+                    <tr style="background-color:#000000;color:#ffffff">
+                        
+                <th>
+                   <span>
+                     <font class="text-white">INSTALLMENTS</font>
+                   </span>
+                </th>
+                <th style="color:#ffffff">
+                   <span>AMOUNT</span>
+                </th>
+                <th style="color:#ffffff">
+                   <span>Amount Received</span>
+                </th>
+                    </tr>
+                </thead>
+                
+                <tbody class="sale_tbody">
+                    <tr>
+                        <td> Advance Payment</td>
+                        <td> <span t-esc="round((docs.list_price/100)*25)"/> </td>
+                        <td>
+                         <t t-set="total_advance_amt"  t-value="0"/>   
+                         <t t-foreach="docs.payment_ids" t-as="pay"> 
+                            <t t-if='pay.state in ("draft","posted") and pay.type=="token"'> 
+                               <t t-set="total_advance_amt"  t-value="total_advance_amt + pay.amount"/>
+                            </t>    
+                        </t>
+                         <span t-esc="round(total_advance_amt)"/>    
+                        </td>
+                    </tr>
+                      <t t-foreach="docs.booking_id.installment_line_ids" t-as="line">
+                        <tr>
+                            <td ><span t-field="line.name"/></td>
+                            <td ><span t-field="line.total_amount"/></td>
+                            <td ><span t-field="line.amount_paid"/></td>
+                             
+                           </tr> 
+                         </t>
+                   
+                </tbody>
+                
+            </table>
+        <br/>
+            <br/>
+            <br/>
+            <p style='text-align:center'  > <b>BUYER ________________________</b></p> 
+             <br/>
+            <br/>
+              <table class='table table-sm'>
+                  <tr>
+                      <td><b> 1: WITNESS ________________________</b>  </td>
+                      <td><b> 2: WITNESS ________________________ </b>  </td>
+                  </tr>
+                   </table>
+            <table class='table table-sm'>
+                  <tr>
+                      <td><b> NAME: ________________________</b>  </td>
+                      <td><b> NAME:________________________ </b>  </td>
+                  </tr>
+                 <tr>
+                      <td><b> CNIC NO: ________________________</b>  </td>
+                      <td><b> CNIC NO:________________________ </b>  </td>
+                  </tr>
+                   </table>
+          </div>
+    </t>
+    </t>
+</template>
+      
+     <template id="payment_customer_report">
+    <t t-call="web.html_container">
+    <t t-call="web.external_layout">
+        <div class="page" >
+            <div class="oe_structure"/>
+             <div  class='pull-right' style="max-width: 250px;height: 20px; color:blue;margin:5px;">
+               <strong>Printed On:</strong>
+               <span  t-esc="datetime.datetime.strptime(str(datetime.datetime.now()+ relativedelta(hours =+ 5)), '%Y-%m-%d %H:%M:%S.%f').strftime('%d-%b-%y %H:%M %p')"/> <br/>
+               <strong>customer Copy</strong>
+            </div>
+            
+             <br/>
+             <br/>
+            <div class='row'>
+            <div class='col-8'>
+                <table class='table table-sm'>
+                    <tr>
+                        <td>DATE              :</td>
+                        <td style='text-align:left;'>
+                            <t t-if ='docs.date_reservation'>
+                            <span t-esc='docs.date_reservation.strftime("%d-%b-%Y")'/>
+                            </t>
+                        </td>
+                     </tr>
+                    <tr>
+                        <td>ALLOTTEE'S NAME   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.name'/></td>
+                    </tr>
+                    <tr>
+                        <td >S/O,W/O,D/O      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.father_husband_name'/></td>
+                    </tr>                    
+                 </table>  
+            </div>
+            <div class='col-4'>
+                <img t-if="docs.partner_id.image_1920" t-att-src="image_data_uri(docs.partner_id.image_1920)" style="max-height:85pt;max-width:100%" alt="Customer Image"/>
+            </div>    
+           </div> 
+            
+                 <table class='table table-sm'>   
+                     <tr>
+                        <td >CNIC NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.nic'/></td>
+                    </tr>
+                     <tr>
+                        <td >CONTACT NO.      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.mobile'/></td>
+                    </tr>
+                    <tr>
+                        <td >EMAIL ADDRESS.   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.email'/></td>
+                    </tr>
+                     <tr>
+                        <td >ADDRESS.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.street'/></td>
+                    </tr>
+                     <tr>
+                        <td >PLOT TYPE.       :</td>
+                        <td style='text-align:left;'><span t-esc='docs.property_type_id'/></td>
+                    </tr>
+                        <tr>
+                        <td >PLOT NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.name'/></td>
+                    </tr>
+                        <tr>
+                        <td >AREA(MARLA)         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.plot_area_marla'/></td>
+                    </tr>
+                        <tr>
+                        <td >RATE(MARLA)         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.plot_file'/></td>
+                    </tr>
+                     <tr>
+                        <td >PLOT VALUE         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.list_price'/></td>
+                    </tr>
+                    
+            </table>
+         <table class="table table-sm o_main_table">
+                <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                <thead style="display: table-row-group">
+                    <tr style="background-color:#000000;color:#ffffff">
+                        
+                <th>
+                   <span>
+                     <font class="text-white">INSTALLMENTS</font>
+                   </span>
+                </th>
+                <th style="color:#ffffff">
+                   <span>AMOUNT</span>
+                </th>
+                <th style="color:#ffffff">
+                   <span>Amount Received</span>
+                </th>
+                    </tr>
+                </thead>
+                
+                <tbody class="sale_tbody">
+                    <tr>
+                        <td> Advance Payment</td>
+                        <td> <span t-esc="round((docs.list_price/100)*25)"/> </td>
+                        <td>
+                         <t t-set="total_advance_amt"  t-value="0"/>   
+                         <t t-foreach="docs.payment_ids" t-as="pay"> 
+                            <t t-if='pay.state in ("draft","posted") and pay.type=="token"'> 
+                               <t t-set="total_advance_amt"  t-value="total_advance_amt + pay.amount"/>
+                            </t>    
+                        </t>
+                         <span t-esc="round(total_advance_amt)"/>    
+                        </td>
+                    </tr>
+                      <t t-foreach="docs.booking_id.installment_line_ids" t-as="line">
+                        <tr>
+                            <td ><span t-field="line.name"/></td>
+                            <td ><span t-field="line.total_amount"/></td>
+                            <td ><span t-field="line.amount_paid"/></td>
+                             
+                           </tr> 
+                         </t>
+                   
+                </tbody>
+                
+            </table>
+        <br/>
+            <br/>
+            <br/>
+            <p style='text-align:center'  > <b>BUYER ________________________</b></p> 
+             <br/>
+            <br/>
+              <table class='table table-sm'>
+                  <tr>
+                      <td><b> 1: WITNESS ________________________</b>  </td>
+                      <td><b> 2: WITNESS ________________________ </b>  </td>
+                  </tr>
+                   </table>
+            <table class='table table-sm'>
+                  <tr>
+                      <td><b> NAME: ________________________</b>  </td>
+                      <td><b> NAME:________________________ </b>  </td>
+                  </tr>
+                 <tr>
+                      <td><b> CNIC NO: ________________________</b>  </td>
+                      <td><b> CNIC NO:________________________ </b>  </td>
+                  </tr>
+                   </table>
+          </div>
+    </t>
+    </t>
+</template>
+      
+    <template id="payment_report">
+        <t t-call="web.html_container">
+            
+         <t t-foreach="docs" t-as="docs">
+            <t t-call="de_property_report.payment_office_report" />
+         </t>
+            
+         <t t-foreach="docs" t-as="docs">
+            <t t-call="de_property_report.payment_customer_report" />
+         </t>   
+        </t>
+        
+    </template>
+
+      
+  </data>
+</odoo>

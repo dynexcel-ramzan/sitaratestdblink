@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo> 
+        <!--Display form view of wizard-->    
+        <record id="view_register_pay_wizard_form" model="ir.ui.view">
+            <field name="name">register.pay.wizard.form</field>
+            <field name="model">register.pay.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Register">
+                    <group>
+                      <group>
+                          <field name="token_amount" />
+                           <field name="date" />
+                           <field name="processing_fee" attrs="{'invisible': [('processing_fee_submit', '!=', False)]}" />
+                           <field name="membership_fee" attrs="{'invisible': [('membership_fee_submit', '!=', False)]}"/>
+                           <field name="processing_fee_submit"  invisible='1' />
+                           <field name="membership_fee_submit"  invisible='1'  />
+                           <field name="allow_amount" invisible='1' />
+                           <field name="partner_id" readonly='1'/>
+                           <field name="installment_id" readonly='1'/>
+                           <field name="remarks" />
+                      </group>
+                      <group>
+                          <field name="type"  />
+                          <field name="journal_id"  string='Bank' />
+                           <field name="check_number" />
+                          <field name="sale_id"  invisible='1'/>                          
+                      </group>                        
+                    </group>                   
+                    <footer>
+                        <button string='Confirm' name="action_confirm" type="object" default_focus="1" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--Open the wizard on click of menu-->
+        <record id="open_register_pay_wizard_action" model="ir.actions.act_window">
+            <field name="name">Register Payment</field>
+            <field name="res_model">register.pay.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_register_pay_wizard_form" />
+         </record>
+    
+    </odoo>
+    
+    
+    
+    

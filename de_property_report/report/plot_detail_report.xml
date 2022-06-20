@@ -1,0 +1,10 @@
+
+<odoo>
+     <report id="open_plot_detail_report"
+            model="report.de_property_report.detail_report_xlx"
+            string="Plot Detail Report"
+            report_type="xlsx"
+            name="de_property_report.detail_report_xlx"
+            file="de_property_report.detail_report_xlx"
+    />
+</odoo>

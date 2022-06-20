@@ -1,0 +1,288 @@
+<odoo>
+  <data>
+  <template id="booking_office_report">
+    <t t-call="web.html_container">
+        <t t-foreach="docs.order_line" t-as="line">
+    <t t-call="web.external_layout">
+        <div class="page" >
+            
+            <div class="oe_structure"/>
+            <div  class='pull-right' style="max-width: 250px;height: 20px; color:blue;margin:5px;">
+               <strong>Printed On:</strong>
+               <span  t-esc="datetime.datetime.strptime(str(datetime.datetime.now()+ relativedelta(hours =+ 5)), '%Y-%m-%d %H:%M:%S.%f').strftime('%d-%b-%y %H:%M %p')"/> <br/>
+               <strong>Office Copy</strong>
+            </div>
+            
+<!--                 <h5 style='text-align:center;'>Booking Form</h5> -->
+                <h5 style='text-align:left;'>      M/s Sitara Developers(Pvt)Ltd </h5>
+            <br/>
+                <table class='table table-sm'>
+<!--                      <t t-foreach="docs.order_line" t-as="line"> -->
+                    <tr>
+                        <td>Plot Type:</td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='line.plot_type'/></td>
+                        <td>Plot/Unit No</td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='line.product_id.name'/></td>
+                        <td >Size </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='line.size'/></td>
+                    </tr>
+<!--                     </t> -->
+                    <tr>
+                        <td colspan='12'><p> I hereby undertake to pay 25% of the total purchase price of plot/unit with in 30 days from the date of booking and balance 75% of the purchase price of plot/unit within 2.5 years in installments starting from the date of booking of earliest. </p>
+                        </td>
+                        </tr>
+                      
+            
+                 </table>
+            <p style='border-bottom:1px solid black;'>  </p>
+          
+            <h4><u> My Particular are as under:</u> </h4>
+            
+              <table class='table table-sm'>
+                    <tr>
+                        <td><b>1</b> &#160; &#160; Name:</td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.partner_id.name'/></td>
+                        <td>Father/Husband Name:</td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.father_husband_name'/></td>
+                       
+                         </tr>
+                  <tr>
+                        <td >CNIC/NICOP: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.nic'/></td>
+                        <td >Nationality: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.nationality'/></td>
+                        <td >Passport: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.passport'/></td>
+                       </tr>
+                   <tr>
+                        <td >NTN: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.ntn'/></td>
+                        <td >Address: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.street'/></td>
+                       </tr>
+                        <tr>
+                        <td >Phone# : </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.phone'/></td>
+                        <td >Mobile: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.mobile'/></td>
+                    </tr>
+                    </table>
+                     <p style='border-bottom:1px solid black;'>  </p>
+               <table class='table table-sm'>
+                     <t t-foreach="docs.Nominee_line_ids" t-as="lines">
+                    <tr>
+                        <td style='width:200px;'><b>2 &#160; &#160; Nominee:</b></td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='lines.name'/></td>
+                        <td style='width:200px;'>Father/Husband Name:</td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='lines.father_husband_name'/></td>
+                        
+                         </tr>
+                  <tr>
+                        <td style='width:300px;' >Relation with Applicant: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:200px;'><span t-esc='lines.relation_applicant'/></td>
+                        <td style='width:200px;'>CNIC/NICOP: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='lines.nic'/></td>
+                         </tr> 
+                         <tr>
+                        <td style='width:200px;' >Nationality: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='docs.nationality'/></td>
+                        <td style='width:200px;'>Passport: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='docs.passport'/></td>
+                       </tr>
+                   <tr>
+                        <td style='width:100px;' >NTN: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:200px;'><span t-esc='lines.ntn'/></td>
+                        <td style='width:150px;'> Residencial Address: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:550px;'><span t-esc='lines.street'/></td>
+                       </tr>
+                        <tr>
+                        <td style='width:200px;' >Phone# : </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='lines.phone'/></td>
+                        <td style='width:200px;'>Mobile: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='lines.mobile'/></td>
+                    </tr>
+                       
+                   </t>
+                    </table>
+            <br/>
+            <br/>
+            
+                         <p class='pull-right'  > Applicant's Signatures  ________________________</p> 
+             <br/>
+            <br/>
+            
+           <p> Declaration:</p>
+             <p> 1.   I hereby declare that I have read &amp; understood the Terms &amp; Conditions and Terms of Payment related to application for Plot/Unit in the project &amp; accept the same.</p>
+          <p>
+              2.  I further understood to pay regularly the installments and dues as per the agreed pay schedule &amp; to abide by all the existing rules &amp; regulations and those ,which may prescribed by Sitara Green City from time to time.
+            </p>  
+             <br/>
+            <br/>
+             <br/>
+           <p> Date:_______________________   &#160; &#160; &#160; &#160;&#160;&#160;   Signature of Applicant &#160; &#160; &#160; &#160; &#160;&#160;      Thumb impression of Applicant</p> 
+                    
+           
+            
+            
+        
+           
+           
+          </div>
+    </t>
+            </t>
+    </t>
+</template>
+      <template id="booking_customer_report">
+    <t t-call="web.html_container">
+         <t t-foreach="docs.order_line" t-as="line">
+    <t t-call="web.external_layout">
+        
+        
+        <div class="page" >
+           
+            <div class="oe_structure"/>
+            <div  class='pull-right' style="max-width: 250px;height: 20px; color:blue;margin:5px;">
+               <strong>Printed On:</strong>
+               <span  t-esc="datetime.datetime.strptime(str(datetime.datetime.now()+ relativedelta(hours =+ 5)), '%Y-%m-%d %H:%M:%S.%f').strftime('%d-%b-%y %H:%M %p')"/> <br/>
+               <strong>Customer Copy</strong>
+            </div>
+            
+<!--                 <h5 style='text-align:center;'>Booking Form</h5> -->
+                <h5 style='text-align:left;'>M/s Sitara Developers(Pvt)Ltd </h5>
+            <br/>
+                <table class='table table-sm'>
+<!--                      <t t-foreach="docs.order_line" t-as="line"> -->
+                    <tr>
+                        <td>Plot Type:</td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='line.plot_type'/></td>
+                        <td>Plot/Unit No</td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='line.product_id.name'/></td>
+                        <td >Size </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='line.size'/></td>
+                    </tr>
+<!--                     </t> -->
+                    <tr>
+                        <td colspan='12'><p> I hereby undertake to pay 25% of the total purchase price of plot/unit with in 30 days from the date of booking and balance 75% of the purchase price of plot/unit within 2.5 years in installments starting from the date of booking of earliest. </p>
+                        </td>
+                        </tr>
+                      
+            
+                 </table>
+            <p style='border-bottom:1px solid black;'>  </p>
+          
+            <h4><u> My Particular are as under:</u> </h4>
+            
+              <table class='table table-sm'>
+                    <tr>
+                        <td><b>1</b> &#160; &#160; Name:</td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.partner_id.name'/></td>
+                        <td>Father/Husband Name:</td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.father_husband_name'/></td>
+                       
+                         </tr>
+                  <tr>
+                        <td >CNIC/NICOP: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.nic'/></td>
+                        <td >Nationality: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.nationality'/></td>
+                        <td >Passport: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.passport'/></td>
+                       </tr>
+                   <tr>
+                        <td >NTN: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.ntn'/></td>
+                        <td >Address: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.street'/></td>
+                       </tr>
+                        <tr>
+                        <td >Phone# : </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.phone'/></td>
+                        <td >Mobile: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;'><span t-esc='docs.mobile'/></td>
+                    </tr>
+                    </table>
+                     <p style='border-bottom:1px solid black;'>  </p>
+               <table class='table table-sm'>
+                     <t t-foreach="docs.Nominee_line_ids" t-as="lines">
+                    <tr>
+                        <td style='width:200px;'><b>2 &#160; &#160; Nominee:</b></td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='lines.name'/></td>
+                        <td style='width:200px;'>Father/Husband Name:</td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='lines.father_husband_name'/></td>
+                        
+                         </tr>
+                  <tr>
+                        <td style='width:300px;' >Relation with Applicant: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:200px;'><span t-esc='lines.relation_applicant'/></td>
+                        <td style='width:200px;'>CNIC/NICOP: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='lines.nic'/></td>
+                         </tr> 
+                         <tr>
+                        <td style='width:200px;' >Nationality: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='docs.nationality'/></td>
+                        <td style='width:200px;'>Passport: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='docs.passport'/></td>
+                       </tr>
+                   <tr>
+                        <td style='width:100px;' >NTN: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:200px;'><span t-esc='lines.ntn'/></td>
+                        <td style='width:150px;'> Residencial Address: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:550px;'><span t-esc='lines.street'/></td>
+                       </tr>
+                        <tr>
+                        <td style='width:200px;' >Phone# : </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='lines.phone'/></td>
+                        <td style='width:200px;'>Mobile: </td>
+                        <td style='border-bottom:1px solid black;text-align:left;width:300px;'><span t-esc='lines.mobile'/></td>
+                    </tr>
+                       
+                   </t>
+                    </table>
+            <br/>
+            <br/>
+            
+                         <p class='pull-right'  > Applicant's Signatures  ________________________</p> 
+             <br/>
+            <br/>
+            
+           <p> Declaration:</p>
+             <p> 1.   I hereby declare that I have read &amp; understood the Terms &amp; Conditions and Terms of Payment related to application for Plot/Unit in the project &amp; accept the same.</p>
+          <p>
+              2.  I further understood to pay regularly the installments and dues as per the agreed pay schedule &amp; to abide by all the existing rules &amp; regulations and those ,which may prescribed by Sitara Green City from time to time.
+            </p>  
+             <br/>
+            <br/>
+             <br/>
+           <p> Date:_______________________   &#160; &#160; &#160; &#160;&#160;&#160;   Signature of Applicant &#160; &#160; &#160; &#160; &#160;&#160;      Thumb impression of Applicant</p> 
+                    
+<!--              <br/>
+            <br/>
+             <br/>
+              <br/>
+             <br/>
+             <br/>
+             <br/> -->
+        
+            
+          
+          </div>
+             
+    </t>
+             </t>
+    </t>
+</template>
+      
+    <template id="booking_report">
+        <t t-call="web.html_container">            
+         <t t-foreach="docs" t-as="docs">
+            <t t-call="de_property_report.booking_customer_report" />
+         </t>           
+         <t t-foreach="docs" t-as="docs">
+            <t t-call="de_property_report.booking_office_report" />
+         </t>   
+        </t>       
+    </template>
+      
+      
+  </data>
+</odoo>

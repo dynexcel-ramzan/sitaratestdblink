@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+      
+       <record id="action_report_account_bank_voucher" model="ir.actions.report">
+             <field name="name">Bank Voucher</field>
+             <field name="model">account.move</field>
+             <field name="report_type">qweb-pdf</field>
+             <field name="report_name">de_account_reports.report_bank_voucher</field>
+             <field name="report_file">de_account_reports.report_bank_voucher</field>
+             <field name="print_report_name">'BANK-VOUCHER - %s' % (object.name)</field>
+             <field name="binding_model_id" ref="account.model_account_move"/>
+             <field name="binding_type">report</field>
+        </record>
+      
+  </data>
+</odoo>

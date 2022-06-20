@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+
+    <record id="view_crm_leadform_inhrt" model="ir.ui.view">
+		<field name="name">crm.lead.form</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="crm.crm_lead_view_form" />
+		<field name="arch" type="xml">
+            
+			<xpath expr="//field[@name = 'team_id']" position="after">
+                <field name="dealers" invisible="1" />
+                <field name="dealer_id" widget="selection" attrs="{'required':[('source_id','=','walk_in_customer')]}" />
+			</xpath>
+            
+		</field>
+	</record>
+  </data>
+</odoo>
+
+

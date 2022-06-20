@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+      
+        <record id="product_template_form_view_fee" model="ir.ui.view">
+			<field name="name">product.template.form.view.fee</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="de_property.product_property_unit_form_view"/>
+			 <field name="arch" type="xml">                 
+                <xpath expr="//notebook" position="inside">
+                    <page name="reseller_inf" string="Resellers">
+                        <field name='reseller_ids' readonly='1'>
+                            <tree editable='bottom'>
+                                  <field name="partner_id" /> 
+                                  <field name="date" />
+                                  <field name="customer_id" />
+                                  <field name="amount_paid" /> 
+                                  <field name="amount_residual" /> 
+                                  <field name="product_id"  invisible='1'/> 
+                            </tree>
+                        </field>
+                    </page>    
+                </xpath>                 
+             </field>
+          </record> 
+      
+  </data>
+</odoo>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        
+    
+      <data>
+  <template id="payment_receipt_report">
+    <t t-call="web.html_container">
+    <t t-call="web.external_layout">
+        <t t-set="company" t-value="docs.company_id"/>  
+        <div class="page"  style='font-size:16px;'>
+            <div class="oe_structure"/>
+             <div  class='pull-right' style="max-width: 250px;height: 20px; color:blue;margin:5px;">
+               <strong>Printed On:</strong>
+               <span  t-esc="datetime.datetime.strptime(str(datetime.datetime.now()+ relativedelta(hours =+ 5)), '%Y-%m-%d %H:%M:%S.%f').strftime('%d-%b-%y %H:%M %p')"/> <br/>
+               
+            </div>
+            
+             <br/>
+             <br/>
+             <br/>
+                <h5 style='text-align:center;'>Payment Receipt</h5>
+            <br/>
+            <div class='row'>
+            <div class='col-6'>
+                <table class='table table-sm' style='border-style:none;'>
+                    <tr>
+                        <td>Receipt:</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.name'/></td>
+                    </tr>
+                    <tr>
+                        <td>Date:</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.date'/></td>
+                     </tr>
+                                        
+                 </table>  
+            </div>
+            <div class='col-6'>
+            </div>    
+           </div> 
+            <table class='table table-sm'>
+            <tr>
+             <td >Received With Thanks From:</td>
+             <td style='border-bottom:1px solid black;text-align:center;'><span  t-esc='docs.partner_id.name'/></td>
+            </tr>
+            </table>
+            
+                 
+                     <div class="row">
+                      <div class='col-6'>
+                    <table class='table table-sm'>
+                     <tr>
+                        <td >CNIC:</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.partner_id.nic'/></td>
+                    </tr>
+                     <tr>
+                        <td >Phone #</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.partner_id.phone'/></td>
+                    </tr>
+                         <t t-foreach="docs.order_id.order_line" t-as="pro">
+                                <t t-foreach="pro.product_id.payment_ids" t-as="poo">
+                                     <t t-if="poo.name==docs.name">
+                                         <tr>
+                                             <td >Plot NO.</td>
+                                             <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='pro.product_id.name'/></td>
+                                         </tr>
+                                    </t>
+                            </t>
+                        </t>
+                               
+                    
+                     <tr>
+                        <td >Amount(In Figures):</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.amount'/></td>
+                    </tr>
+                   
+                          </table>
+                    </div>
+                      
+                     <div class='col-6'>
+                         <table class='table table-sm'>
+                          <tr>
+                              <td >NTN:</td>
+                              <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.partner_id.ntn'/></td>
+                         </tr>
+                             <tr>
+                        <td >Mobile #</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.partner_id.mobile'/></td>
+                    </tr>
+                         <tr>
+                              <td >Email:</td>
+                              <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.partner_id.email'/></td>
+                         </tr>
+                              <t t-foreach="docs.order_id.order_line" t-as="pr">
+                                <t t-foreach="pr.product_id.payment_ids" t-as="po">
+                                     <t t-if="po.name==docs.name">
+                         <tr>
+                              <td >Plot Type:</td>
+                          <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='pr.plot_type'/></td>
+                         </tr>
+                                    </t>
+                                  </t>
+                             </t>
+                         </table>
+                     </div>
+                     </div>
+            <table class='table table-sm'>
+                <tr>
+                        <td >Amount(In Words):</td>
+                         <t t-set="amount_a" t-value="0"/>
+                         <t t-set="amount_a" t-value="docs.amount"/>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc="docs.company_id.currency_id.amount_to_text(amount_a)"/></td>
+
+                 </tr>
+                        
+                        
+                         </table>
+            
+            
+                <div class="row">
+                <div class='col-8'>
+                    <table class='table table-sm'>
+                     <tr>
+                        <td >Cash/Cheque/Pay Order/Demand Draft:</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.ref'/></td>
+                    </tr>
+                    </table>
+                </div>
+                <div class='col-4'>
+                    <table class='table table-sm'>
+                     <tr>
+                        <td >Dated:</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.date'/></td>
+                    </tr>
+                    
+                    </table>
+                </div>
+                </div>
+            <table class='table table-sm'>
+                <tr>
+                    <td >Drawan on Bank:</td>
+                    <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.journal_id.name' /></td>
+                 </tr>
+            </table>
+          
+                <div class="row">
+                <div class='col-4'>
+                      <table class='table table-sm'>
+<!--                           <t t-foreach="docs.order_id.installment_line_ids" t-as="line"> -->
+                     <tr>
+                        <td >Payment Type:</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'>
+                            
+                            <t t-if="docs.type=='token'">
+                                <span>Token</span>
+                            </t>
+                            <t t-if="docs.type=='book'">
+                                <span>Booking</span>
+                            </t>
+                            <t t-if="docs.type=='allott'">
+                                <span>Allottment</span>
+                            </t>
+
+                            <t t-if="docs.type=='installment'">
+                                <span>Installment</span>
+                            </t>
+                         </td>
+                    </tr>
+<!--                           </t> -->
+                    </table>
+                </div>
+                <div class='col-4'>
+                    <table class='table table-sm'>
+                     <tr>
+                        <td >Payment Amount:</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.amount'/></td>
+                    </tr>
+                    </table>
+                </div>
+                  <div class='col-4'>
+<!--                       <table class='table table-sm'>
+                     <tr>
+                        <td >From:</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span string="1"/></td>
+                         
+                          <td >To:</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span string="1"/></td>
+                    </tr>
+                      </table> -->
+                </div>
+                </div>
+           
+                <div class="row">
+                <div class='col-6'>
+                     <table class='table table-sm'>
+                     <tr>
+                        <td >Deposited By:</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.partner_id.name'/></td>
+                    </tr>
+                    </table>
+                    </div>
+                    <div class='col-6'>
+                        <table class='table table-sm'>
+                    <tr>
+                        <td >Phone NO:</td>
+                        <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.partner_id.phone'/></td>
+                    </tr>
+                    </table>
+                </div>
+            </div>
+                
+            <div class="row">
+                <div class='col-6'>
+                    <table class='table table-sm'>
+                        <tr>
+                            <td >CNIC NO:</td>
+                            <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.partner_id.nic'/></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class='col-6'>
+                    
+                    <table class='table table-sm'>
+                        <tr>
+                            <td >Mobile NO:</td>
+                            <td style='border-bottom:1px solid black;text-align:center;'><span t-esc='docs.partner_id.mobile'/></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+               
+                    
+        
+                    
+             <br/>
+            
+            <br/>
+            <br/>
+            <br/>
+             <br/>
+            <div class="row">
+                <div class='col-4'>
+                    <p style='border-top:1px solid black;text-align:center;'>Accounts Department</p>
+                </div>
+                <div class='col-4'>
+                    <p style='border-top:1px solid black;text-align:center;'> Customer Signature</p>
+                </div>
+                <div class='col-4'>
+                    <p style='border-top:1px solid black;text-align:center;'> Authorzed By</p>
+                </div>
+            </div>
+
+           <br/>
+             <p>Note: This Receipt will be considered as valid subject to the realization of Cheque/PO/DD</p>             
+           
+          </div>
+    </t>
+    </t>
+</template>
+    </data>
+</odoo>

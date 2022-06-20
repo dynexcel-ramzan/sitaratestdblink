@@ -1,0 +1,16 @@
+<!-- <odoo>
+  <data>
+      
+       <record id="sale_order_form_view_allotment_image" model="ir.ui.view">
+			<field name="name">sale.order.form.view.allotee.img</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;zoom&quot;: true, &quot;preview_image&quot;:&quot;image_128&quot;}" nolable='1'/>
+                </xpath>   
+           </field>
+       </record> 
+      
+  </data>
+</odoo> -->

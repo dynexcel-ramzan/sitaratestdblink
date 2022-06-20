@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+    <menuitem
+        id="property_menu_root"
+        name="Property"
+        web_icon="de_property,static/description/icon.png"
+        groups="de_property.group_property_user"
+        sequence="45"
+    />
+      
+      <menuitem id="menu_property_dashbaord" name="Dashboard" parent="property_menu_root" sequence="10"/>
+      <menuitem id="menu_property_orders" name="Order" parent="property_menu_root" sequence="20" />
+      <menuitem id="menu_property_property" name="Property" parent="property_menu_root" sequence="30"/>
+      <menuitem id="menu_property_partner" name="Business Partner" parent="property_menu_root" sequence="40"/>
+      <menuitem id="menu_property_reporting" name="Reporting" parent="property_menu_root" sequence="50"/>
+      <menuitem id="menu_property_config" name="Configuration" parent="property_menu_root" sequence="60" groups="de_property.group_property_manager"/>
+  </data>
+</odoo>

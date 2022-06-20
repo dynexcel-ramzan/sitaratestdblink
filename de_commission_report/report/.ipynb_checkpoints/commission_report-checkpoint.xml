@@ -1,0 +1,12 @@
+
+
+
+<odoo>
+     <report id="open_plot_status_report"
+            model="report.de_commission_report.commission_report_xlx"
+            string="Commission Report"
+            report_type="xlsx"
+            name="de_commission_report.commission_report_xlx"
+            file="de_commission_report.commission_report_xlx"
+    />
+</odoo>

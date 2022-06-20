@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+      
+       <record id="product_category_form_view_allotment" model="ir.ui.view">
+			<field name="name">product.category.form.view.allotee</field>
+			<field name="model">product.category</field>
+			<field name="inherit_id" ref="product.product_category_form_view"/>
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="can_be_property" />
+                </xpath>   
+           </field>
+       </record> 
+      
+  </data>
+</odoo>

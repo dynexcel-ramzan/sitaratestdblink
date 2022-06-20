@@ -1,0 +1,40 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_partner_form_inherit">
+        <field name="name">view.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="ntn" placeholder="e.g 1359640-3"/>
+                <field name="nic" placeholder="e.g 3460344332225" />
+                <field name="father_husband_name"  />
+                <field name="nationality"  />
+                <field name="passport"  />
+                 
+            </xpath>
+            
+            <xpath expr="//notebook" position="inside">
+                <page string='Nominee'> 
+                 <field name="Nominee_line_ids">
+                <tree editable="bottom">
+                <field name="name"  string='Nominee'/>  
+                <field name="father_husband_name"  />
+                <field name="relation_applicant" />
+                <field name="nic" placeholder="e.g 3460344332225" />
+                <field name="nationality" /> 
+                <field name="passport" /> 
+                <field name="ntn" placeholder="e.g 1359640-3"/>
+                <field name="street" string="Address" />
+                <field name="phone"  />
+                <field name="mobile"  />
+                    </tree>
+                </field>
+                </page>
+                 
+            </xpath>
+            
+        </field>
+    </record>
+  </data>
+</odoo>

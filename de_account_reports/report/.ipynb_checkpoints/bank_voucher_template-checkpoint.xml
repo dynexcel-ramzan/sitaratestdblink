@@ -1,0 +1,140 @@
+<odoo>
+  <data>
+      <template id="report_bank_voucher">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                    <h2>
+                       <span t-if="o.name != '/'" t-field="o.name"/>
+                    </h2>
+                        
+                     <div id="informations" class="row mt32 mb32">
+                        <div class="col-auto mw-100 mb-2" t-if="o.date" name="date">
+                            <strong>Voucher Date:</strong>
+                            <p class="m-0" t-field="o.date" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2" >
+                            <strong>Payee:</strong>
+                            <t t-set='payee_name'  t-value='0' />
+                            <t t-set='payee_name_detail'  t-value='0' />
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <t t-set='payee_name_detail'  t-value='line.partner_id.name' />
+                                <t t-set='payee_name'  t-value='payee_name + 1' />
+                                <t t-if='payee_name==1'>
+                                  <p class="m-0" t-field="line.partner_id.name"/>
+                                </t>    
+                            </t>    
+                        </div>
+                        <div class="col-auto mw-100 mb-2"  name="currency">
+                            <strong>Currency:</strong>
+                            <p class="m-0" t-field="o.currency_id.name"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" name="customer_code">
+                            <strong>Detail:</strong>
+                            <p class="m-0" t-esc="payee_name_detail"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.ref" name="reference">
+                            <strong>Reference:</strong>
+                            <p class="m-0" t-field="o.ref"/>
+                        </div>
+                    </div>
+                       <table class="table table-bordered" style="table-layout: fixed">
+                           <tr>
+                               <th>Amount</th>
+                               <td><span t-esc="'{0:,}'.format(int(round(o.amount_total)))"/> </td> 
+                           </tr>
+                           <tr>
+                               <th>Amount In Words</th>
+                               <td><span t-esc='o.company_id.currency_id.amount_to_text(o.amount_total)'/></td>
+                           </tr>
+                       </table>    
+                        
+                        
+                        <div class="row justify-content-end">
+                            <div class="col-12">
+                                <table class="table table-bordered" style="table-layout: fixed">
+                                    <thead>
+                                        <tr>
+                                            <th>Account</th>
+                                            <th style="max-width:400px; word-wrap:break-word;">Description</th>
+                                            <th>Debit</th>
+                                            <th>Credit</th>
+                                        </tr>
+                                    </thead>
+                                    <t t-set="debit" t-value="0"/>
+                                    <t t-set="credit" t-value="0"/>
+                                    <tbody>
+                                      <t t-foreach="o.line_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <span t-field="line.account_id" style="font-size: 11pt;font-family:Helvetica,Verdana,Arial,sans,Lucida Grande,Calibri;"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.name" style="font-size: 11pt;max-width:300px; word-wrap:break-word;" />                        </td>
+                                            <td>
+                                                <span t-field="line.debit" style="font-size: 11pt;font-family:Helvetica,Verdana,Arial,sans,Lucida Grande,Calibri;"/>
+                                            </td>
+                                            <t t-set="debit" t-value="debit + line.debit"/>
+                                            <td>
+                                                <span t-field="line.credit" style="font-size: 11pt;font-family:Helvetica,Verdana,Arial,sans,Lucida Grande,Calibri;"/>
+                                            </td>
+                                            <t t-set="credit" t-value="credit + line.credit"/>
+                                        </tr>
+                                      </t>
+                                        <tr>
+                                            <td>
+                                                
+                                            </td>
+                                            <td>
+                                                
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{0:,}'.format(int(round(debit)))"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{0:,}'.format(int(round(credit)))"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <br/>                              
+                                <table class="table" style="table-layout: fixed">
+                                    <thead>
+                                        <tr>
+                                            <th style="border: 1px solid black; height: 60px"></th>
+                                            <th style="width:20px; word-wrap:break-word;"></th>
+                                            <th style="border: 1px solid black;  height: 60px"></th>
+                                            <th style="width:20px; word-wrap:break-word;"></th>
+                                            <th style="border: 1px solid black;  height: 60px"></th>
+                                            <th style="width:20px; word-wrap:break-word;"></th>
+                                            <th style="border: 1px solid black;  height: 60px"></th>
+                                            <th style="width:20px; word-wrap:break-word;"></th>
+                                            <th style="border: 1px solid black;  height: 60px"></th>
+                                        </tr>
+                                        <tr>
+                                            <th style="border-top: 1px solid black;">Prepared By</th>
+                                            <th style="width:20px; word-wrap:break-word;"> </th>
+                                            <th style="border-top: 1px solid black;">Checked By</th>
+                                            <th style="width:20px; word-wrap:break-word;"> </th>
+                                            <th style="border-top: 1px solid black;">Approved By</th>
+                                            <th style="width:20px; word-wrap:break-word;"> </th>
+                                            <th style="border-top: 1px solid black;">Approved By</th>
+                                            <th style="width:20px; word-wrap:break-word;"> </th>
+                                            <th style="border-top: 1px solid black;">Received By</th>
+                                        </tr>
+                                    </thead>
+                                </table>    
+                                
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                
+            </t>
+        </t>
+       </template> 
+      
+  </data>
+</odoo>

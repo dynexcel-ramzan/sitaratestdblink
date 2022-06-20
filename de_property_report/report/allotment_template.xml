@@ -1,0 +1,215 @@
+<odoo>
+  <data>
+  <template id="allotment_office_report">
+    <t t-call="web.html_container">
+    <t t-call="web.external_layout">
+        <div class="page"  style='font-size:12px;'>
+           
+            <div class="oe_structure"/>
+             <div  class='pull-right' style="max-width: 250px;height: 20px; color:blue;margin:5px;">
+               
+               <strong>Printed On:</strong>
+               <span  t-esc="datetime.datetime.strptime(str(datetime.datetime.now()+ relativedelta(hours =+ 5)), '%Y-%m-%d %H:%M:%S.%f').strftime('%d-%b-%y %H:%M %p')"/> <br/>
+               <strong>Office Copy</strong>
+            </div>
+            
+             <br/>
+             <br/>
+             <br/>
+                <h5 style='text-align:left;'>MANAGEMENT OF SITARA GREEN CITY IS HEREBY PLEASED TO PROVISIONALLY ALLOT YOU THE BELOW MENTIONED PLOT UNDER THE TERMS &amp; CONDITION ON THE BACK AND PAYMENT SCHEDULE ATTACHED WITH THIS LETTER  </h5>
+            <br/>
+            <div class='row'>
+            <div class='col-8'>
+                <table class='table table-sm'>
+                    <tr>
+                        <td>DATE              :</td>
+                        <td style='text-align:left;'><span t-esc='docs.date_order.strftime("%d-%b-%Y")'/></td>
+                     </tr>
+                    <tr>
+                        <td>ALLOTTEE'S NAME   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.name'/></td>
+                    </tr>
+                    <tr>
+                        <td >S/O,W/O,D/O      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.father_husband_name'/></td>
+                    </tr>                    
+                 </table>  
+            </div>
+            <div class='col-4'>
+                <img t-if="docs.partner_id.image_1920" t-att-src="image_data_uri(docs.partner_id.image_1920)" style="max-height:85pt;max-width:100%" alt="Customer Image"/>
+            </div>    
+           </div> 
+            
+                 <table class='table table-sm'>   
+                     <tr>
+                        <td >CNIC NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.nic'/></td>
+                    </tr>
+                     <tr>
+                        <td >CONTACT NO.      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.mobile'/></td>
+                    </tr>
+                    <tr>
+                        <td >EMAIL ADDRESS.   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.email'/></td>
+                    </tr>
+                     <tr>
+                        <td >ADDRESS.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.street'/><span t-esc='docs.partner_id.street2'/><span t-esc='docs.partner_id.city'/><span t-esc='docs.partner_id.country_id.name'/></td>
+                    </tr>
+<!--                     <t t-foreach="docs.order_line" t-as="line"> -->
+                     <tr>
+                        <td >PLOT TYPE.       :</td>
+                        <td style='text-align:left;'><span t-esc='line.plot_type'/></td>
+                    </tr>
+                        <tr>
+                        <td >PLOT NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='line.product_id.name'/></td>
+                    </tr>
+                        <tr>
+                        <td >AREA(MARLA)         :</td>
+                        <td style='text-align:left;'><span t-esc='round(float(line.size),2)'/></td>
+                    </tr>
+<!--                     </t> -->
+            </table>
+                    
+        
+                    <p><u> Declaration:</u></p>
+             <p> I hereby declare that I have read &amp; understood the Terms &amp; Conditions and Terms of Payment related to allotment of Plot/Unit in the project &amp; accept the same.</p>
+          <p>
+                I further understood to pay regularly the installments and dues as per the agreed payment schedule attached &amp; to abide by all the existing rules &amp; regulations and those ,which may be prescribed by Sitara Green City/Sitara Developers(PVT)Ltd from time to time.
+            </p>  
+             <br/>
+            <br/>
+             <br/>
+           <br/>
+            <br/>
+             <br/>
+           <p>  &#160; &#160; &#160; &#160;Signature of (Allottee)    &#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160; &#160; &#160; &#160;&#160; &#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160; &#160; &#160; &#160;&#160;&#160;     Signature of (Developer)</p>
+                    <br/>
+            <br/>
+            <br/>
+             <br/>
+           
+             <br/>
+             <br/>
+             <br/>
+             <p>  &#160; &#160; &#160; &#160;Thumb Impression </p> 
+           
+          </div>
+    </t>
+    </t>
+</template>
+      
+    <template id="allotment_customer_report">
+    <t t-call="web.html_container">
+    <t t-call="web.external_layout">
+        <div class="page"  style='font-size:12px;'>
+            <div class="oe_structure"/>
+             <div  class='pull-right' style="max-width: 250px;height: 20px; color:blue;margin:5px;">
+               <strong>Printed On:</strong>
+               <span  t-esc="datetime.datetime.strptime(str(datetime.datetime.now()+ relativedelta(hours =+ 5)), '%Y-%m-%d %H:%M:%S.%f').strftime('%d-%b-%y %H:%M %p')"/> <br/>
+               <strong>Customer Copy</strong>
+            </div>
+            
+             <br/>
+             <br/>
+             <br/>
+                <h5 style='text-align:left;'>MANAGEMENT OF SITARA GREEN CITY IS HEREBY PLEASED TO PROVISIONALLY ALLOT YOU THE BELOW MENTIONED PLOT UNDER THE TERMS &amp; CONDITION ON THE BACK AND PAYMENT SCHEDULE ATTACHED WITH THIS LETTER  </h5>
+            <br/>
+            <div class='row'>
+            <div class='col-8'>
+                <table class='table table-sm'>
+                    <tr>
+                        <td>DATE              :</td>
+                        <td style='text-align:left;'><span t-esc='docs.date_order.strftime("%d-%b-%Y")'/></td>
+                     </tr>
+                    <tr>
+                        <td>ALLOTTEE'S NAME   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.name'/></td>
+                    </tr>
+                    <tr>
+                        <td >S/O,W/O,D/O      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.father_husband_name'/></td>
+                    </tr>                    
+                 </table>  
+            </div>
+            <div class='col-4'>
+                <img t-if="docs.partner_id.image_1920" t-att-src="image_data_uri(docs.partner_id.image_1920)" style="max-height:85pt;max-width:100%" alt="Customer Image"/>
+            </div>    
+           </div> 
+            
+                 <table class='table table-sm'>   
+                     <tr>
+                        <td >CNIC NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.nic'/></td>
+                    </tr>
+                     <tr>
+                        <td >CONTACT NO.      :</td>
+                        <td style='text-align:left;'><span t-esc='docs.mobile'/></td>
+                    </tr>
+                    <tr>
+                        <td >EMAIL ADDRESS.   :</td>
+                        <td style='text-align:left;'><span t-esc='docs.partner_id.email'/></td>
+                    </tr>
+                     <tr>
+                        <td >ADDRESS.         :</td>
+                        <td style='text-align:left;'><span t-esc='docs.street'/></td>
+                    </tr>
+<!--                     <t t-foreach="docs.order_line" t-as="line"> -->
+                     <tr>
+                        <td >PLOT TYPE.       :</td>
+                        <td style='text-align:left;'><span t-esc='line.plot_type'/></td>
+                    </tr>
+                        <tr>
+                        <td >PLOT NO.         :</td>
+                        <td style='text-align:left;'><span t-esc='line.product_id.name'/></td>
+                    </tr>
+                        <tr>
+                        <td >AREA(MARLA)         :</td>
+                        <td style='text-align:left;'><span t-esc='round(float(line.size),2)'/></td>
+                    </tr>
+<!--                     </t> -->
+            </table>
+                    
+        
+                    <p><u> Declaration:</u></p>
+             <p> I hereby declare that I have read &amp; understood the Terms &amp; Conditions and Terms of Payment related to allotment of Plot/Unit in the project &amp; accept the same.</p>
+          <p>
+                I further understood to pay regularly the installments and dues as per the agreed payment schedule attached &amp; to abide by all the existing rules &amp; regulations and those ,which may be prescribed by Sitara Green City/Sitara Developers(PVT)Ltd from time to time.
+            </p>  
+             <br/>
+            <br/>
+             <br/>
+           <br/>
+            <br/>
+             <br/>
+           <p>  &#160; &#160; &#160; &#160;Signature of (Allottee)    &#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160; &#160; &#160; &#160;&#160; &#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160; &#160; &#160; &#160;&#160;&#160;     Signature of (Developer)</p>
+                    <br/>
+            <br/>
+            <br/>
+             <br/>
+           
+             <br/>
+             <br/>
+             <br/>
+             <p>  &#160; &#160; &#160; &#160;Thumb Impression </p>             
+          </div>
+    </t>
+    </t>
+</template>
+
+<template id="allotment_report">
+        <t t-call="web.html_container">
+         <t t-foreach="docs" t-as="docs">
+           <t t-foreach="docs.order_line"  t-as="line">
+            <t t-call="de_property_report.allotment_office_report" />
+            <t t-call="de_property_report.allotment_customer_report" />
+         </t>
+        </t>
+       </t>
+    </template>
+
+      
+  </data>
+</odoo>
